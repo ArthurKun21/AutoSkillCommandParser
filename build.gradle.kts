@@ -12,9 +12,12 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
 }
-
 tasks.test {
     useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+        events("passed", "failed", "skipped")
+    }
 }
 kotlin {
     jvmToolchain(17)

@@ -1,16 +1,54 @@
 package io.arthurkun
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-fun main() {
-    val name = "Kotlin"
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    println("Hello, " + name + "!")
+import io.arthurkun.parser.model.AutoSkillCommand
 
-    for (i in 1..5) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        println("i = $i")
+fun main() {
+    val commands = listOf(
+        "",
+        "ax11abcdf[Tfrm]gt2j456,i[Tfrm]6",
+        "i6,#,gf5,#,4"
+    )
+    commands.forEachIndexed { index, command ->
+        println("Command $index: $command\n")
+        try {
+            parseCommand(command)
+        } catch (e: Exception) {
+            println("Error parsing command: ${e.message}")
+        }
+        if (index != commands.lastIndex) {
+            println("--------------------------------------------------")
+        }
+
     }
+}
+
+private fun parseCommand(command: String) {
+    val stageCommands = AutoSkillCommand.parse(command).stages
+
+    val groupStageCommands = stageCommands
+        .flatMap { it }
+        .flatMap { it }
+        .groupBy {
+            Pair(it.wave, it.turn)
+        }
+
+    groupStageCommands.forEach { (wave, turn), commands ->
+        val parseCommandString = commands.joinToString(separator = "\n") { it.codes }
+        val commandString = "Wave:${wave}\t" +
+                "Turn:${turn}\n" +
+                parseCommandString
+        println(commandString)
+    }
+
+//    stageCommands.forEach { stageCommand ->
+//        stageCommand.forEach { waveCommands ->
+//            waveCommands.forEach { commandAction ->
+//                val commandString = "Wave:${commandAction.wave}\t" +
+//                        "Turn:${commandAction.turn}\t" +
+//                        "${commandAction.codes}\n" +
+//                        "$commandAction"
+//                println(commandString)
+//            }
+//        }
+//    }
 }
