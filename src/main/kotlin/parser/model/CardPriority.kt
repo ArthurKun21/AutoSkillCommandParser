@@ -55,7 +55,7 @@ class CardPriority private constructor(
             if (scores.size < 9 || scores.size > 15) {
                 raiseParseError(
                     "$CARD_PRIORITY_ERROR_MSG': Expected at least 9 but not more than 15 cards, " +
-                        "but ${scores.size} found.",
+                            "but ${scores.size} found.",
                 )
             }
             return when (scores.size) {
@@ -171,7 +171,9 @@ class CardPriority private constructor(
         private fun formatCardString(cardString: String) = when (cardString.length) {
             1 -> "$DUMMY_NORMAL_AFFINITY_CHAR$cardString$DUMMY_NORMAL_CRIT_CHAR"
             2 -> {
-                if (cardString[AFFINITY_POSITION] == WEAK_AFFINITY_CHAR || cardString[AFFINITY_POSITION] == RESIST_AFFINITY_CHAR) {
+                if (cardString[AFFINITY_POSITION] == WEAK_AFFINITY_CHAR ||
+                    cardString[AFFINITY_POSITION] == RESIST_AFFINITY_CHAR
+                ) {
                     "$cardString$DUMMY_NORMAL_CRIT_CHAR"
                 } else {
                     "$DUMMY_NORMAL_AFFINITY_CHAR$cardString"

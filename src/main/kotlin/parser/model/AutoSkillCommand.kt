@@ -300,11 +300,17 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                         }
                 }
                 if (char != SpecialCommand.EndSpecialTarget.autoSkillCode) {
-                    throw ParsingException(ParsingReason.MissingEndTarget(SpecialCommand.EndSpecialTarget.autoSkillCode))
+                    throw ParsingException(
+                        ParsingReason.MissingEndTarget(SpecialCommand.EndSpecialTarget.autoSkillCode),
+                    )
                 }
                 if (special.isEmpty()) throw ParsingException(ParsingReason.EmptyCommand)
 
-                if (actionTarget == null) throw ParsingException(ParsingReason.UnknownSpecialTarget(target = special.toString()))
+                if (actionTarget ==
+                    null
+                ) {
+                    throw ParsingException(ParsingReason.UnknownSpecialTarget(target = special.toString()))
+                }
             } else {
                 SkillActionsTarget
                     .list
@@ -396,7 +402,9 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                     throw ParsingException(ParsingReason.MissingEndTarget(SpecialCommand.EndMultiTarget.autoSkillCode))
                 }
                 if (specialFound) {
-                    throw ParsingException(ParsingReason.MissingEndTarget(SpecialCommand.EndSpecialTarget.autoSkillCode))
+                    throw ParsingException(
+                        ParsingReason.MissingEndTarget(SpecialCommand.EndSpecialTarget.autoSkillCode),
+                    )
                 }
             } else {
                 val (target, code) = getTarget(queue)

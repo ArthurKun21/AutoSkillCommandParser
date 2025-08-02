@@ -70,14 +70,14 @@ sealed class SkillActionsTarget(
                 for (existingCode in codes) {
                     require(
                         !(
-                            targetCode.startsWith(existingCode) ||
-                                existingCode.startsWith(
-                                    targetCode,
-                                )
+                                targetCode.startsWith(existingCode) ||
+                                        existingCode.startsWith(
+                                            targetCode,
+                                        )
                                 ),
                     ) {
                         "Special target code " +
-                            "$targetCode conflicts with existing code $existingCode"
+                                "$targetCode conflicts with existing code $existingCode"
                     }
                 }
                 codes.add(targetCode)
