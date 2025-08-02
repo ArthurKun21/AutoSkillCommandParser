@@ -25,6 +25,8 @@ sealed class ParsingException(
         char: Char,
     ) : ParsingException("Unknown enemy target: $char")
 
+    class MissingServantTarget() : ParsingException("Missing servant target")
+
     class IncompleteCommand : ParsingException("Incomplete command")
 
     class SkillCommandParseError(

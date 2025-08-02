@@ -123,5 +123,15 @@ sealed class SkillActionsTarget(
                 SpecialSkill.Transform,
             )
         }
+
+        val fieldList by lazy {
+            listOf(
+                A,
+                B,
+                C,
+                Left,
+                Right,
+            )
+        }
     }
 }

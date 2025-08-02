@@ -131,6 +131,8 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                         val spell = SkillSource.CommandSpell.list.first { it.autoSkillCode == currentChar }
                         val (actionTarget, targetCodes) = getTarget(queue)
 
+                        actionTarget ?: throw ParsingException.MissingServantTarget()
+
                         val codes = "$currentChar$targetCodes"
 
                         AutoSkillAction.CommandSpell(

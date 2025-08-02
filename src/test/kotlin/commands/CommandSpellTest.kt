@@ -7,6 +7,7 @@ import io.arthurkun.parser.model.SkillSource
 import org.junit.jupiter.api.BeforeAll
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 import kotlin.test.assertIs
 
 class CommandSpellTest {
@@ -66,17 +67,13 @@ class CommandSpellTest {
         )
     }
 
-    // Disabled: The parser currently does not throw an error for
-    // incomplete command spell strings (e.g., "op2").
-    // Once parser validation is implemented,
-    // this test should be enabled to ensure incomplete commands fail as expected.
-//    @Test
-//    fun `Incomplete Command Spell should fail`() {
-//        assertFails {
-//            val failCommand = "op2"
-//            AutoSkillCommand.parse(failCommand)
-//        }
-//    }
+    @Test
+    fun `Incomplete Command Spell should fail`() {
+        assertFails {
+            val failCommand = "op2"
+            AutoSkillCommand.parse(failCommand)
+        }
+    }
 
     // Disabled: The parser currently does not throw an error for
     // command spell strings that exceed the maximum number of commands.
