@@ -20,7 +20,7 @@ class EnemyTargetTest {
         targetsMap.forEach { (target, command) ->
             testEnemyTargetEachCode(
                 command = command,
-                enemyTarget = target
+                enemyTarget = target,
             )
         }
     }
@@ -41,9 +41,8 @@ class EnemyTargetTest {
         assertEquals(
             expected = command,
             actual = action.codes,
-            message = "Action codes should be '$command'"
+            message = "Action codes should be '$command'",
         )
-
     }
 
     @Test

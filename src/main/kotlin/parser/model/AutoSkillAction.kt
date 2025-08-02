@@ -21,20 +21,19 @@ sealed class AutoSkillAction(
     ) : AutoSkillAction(
         wave = wave,
         turn = turn,
-        codes = codes
+        codes = codes,
     ) {
         init {
             require(numberOfCardsBeforeNP in 0..2) { "Only 0, 1 or 2 cards can be used before NP" }
         }
 
-        operator fun plus(other: Atk) =
-            Atk(
-                nps = nps + other.nps,
-                numberOfCardsBeforeNP = numberOfCardsBeforeNP + other.numberOfCardsBeforeNP,
-                wave = wave,
-                turn = turn,
-                codes = codes + other.codes
-            )
+        operator fun plus(other: Atk) = Atk(
+            nps = nps + other.nps,
+            numberOfCardsBeforeNP = numberOfCardsBeforeNP + other.numberOfCardsBeforeNP,
+            wave = wave,
+            turn = turn,
+            codes = codes + other.codes,
+        )
 
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
@@ -60,7 +59,7 @@ sealed class AutoSkillAction(
                 numberOfCardsBeforeNP = 0,
                 wave = wave,
                 turn = turn,
-                codes = ""
+                codes = "",
             )
 
             fun np(
@@ -73,7 +72,7 @@ sealed class AutoSkillAction(
                 numberOfCardsBeforeNP = 0,
                 wave = wave,
                 turn = turn,
-                codes = codes
+                codes = codes,
             )
 
             fun cardsBeforeNP(
@@ -86,7 +85,7 @@ sealed class AutoSkillAction(
                 numberOfCardsBeforeNP = numberOfCardsBeforeNP,
                 wave = wave,
                 turn = turn,
-                codes = codes
+                codes = codes,
             )
         }
     }
@@ -100,7 +99,7 @@ sealed class AutoSkillAction(
     ) : AutoSkillAction(
         wave = wave,
         turn = turn,
-        codes = codes
+        codes = codes,
     )
 
     data class MasterSkill(
@@ -112,7 +111,7 @@ sealed class AutoSkillAction(
     ) : AutoSkillAction(
         wave = wave,
         turn = turn,
-        codes = codes
+        codes = codes,
     )
 
     data class CommandSpell(
@@ -124,7 +123,7 @@ sealed class AutoSkillAction(
     ) : AutoSkillAction(
         wave = wave,
         turn = turn,
-        codes = codes
+        codes = codes,
     )
 
     data class TargetEnemy(
@@ -135,7 +134,7 @@ sealed class AutoSkillAction(
     ) : AutoSkillAction(
         wave = wave,
         turn = turn,
-        codes = codes
+        codes = codes,
     )
 
     data class OrderChange(
@@ -147,6 +146,6 @@ sealed class AutoSkillAction(
     ) : AutoSkillAction(
         wave = wave,
         turn = turn,
-        codes = codes
+        codes = codes,
     )
 }

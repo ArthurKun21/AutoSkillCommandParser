@@ -77,27 +77,26 @@ class CardPriority private constructor(
          * @param scores The scores to expand.
          * @return The expanded scores.
          */
-        private fun expandScoresWithCriticalCards(scores: List<CardScore>) =
-            scores.flatMap { score ->
-                listOfNotNull(
-                    when (score.affinity) {
-                        CardAffinityEnum.Normal ->
-                            CardScore(
-                                score.type,
-                                CardAffinityEnum.NormalCritical,
-                            )
+        private fun expandScoresWithCriticalCards(scores: List<CardScore>) = scores.flatMap { score ->
+            listOfNotNull(
+                when (score.affinity) {
+                    CardAffinityEnum.Normal ->
+                        CardScore(
+                            score.type,
+                            CardAffinityEnum.NormalCritical,
+                        )
 
-                        CardAffinityEnum.Weak ->
-                            CardScore(
-                                score.type,
-                                CardAffinityEnum.WeakCritical,
-                            )
-                        // Resist cards don't need to be checked.
-                        else -> null
-                    },
-                    score,
-                )
-            }
+                    CardAffinityEnum.Weak ->
+                        CardScore(
+                            score.type,
+                            CardAffinityEnum.WeakCritical,
+                        )
+                    // Resist cards don't need to be checked.
+                    else -> null
+                },
+                score,
+            )
+        }
 
         /**
          * Parses the card string into a [CardScore] object.
@@ -145,16 +144,15 @@ class CardPriority private constructor(
          *
          * @see CardAffinityEnum
          */
-        private fun parseCardAffinity(cardString: String) =
-            when (cardString[AFFINITY_POSITION]) {
-                WEAK_AFFINITY_CHAR -> CardAffinityEnum.Weak
-                RESIST_AFFINITY_CHAR -> CardAffinityEnum.Resist
-                DUMMY_NORMAL_AFFINITY_CHAR -> CardAffinityEnum.Normal
-                else ->
-                    raiseParseError(
-                        "$CARD_PRIORITY_ERROR_MSG${cardString[AFFINITY_POSITION]}': Only 'W', and 'R' are valid card affinities.",
-                    )
-            }
+        private fun parseCardAffinity(cardString: String) = when (cardString[AFFINITY_POSITION]) {
+            WEAK_AFFINITY_CHAR -> CardAffinityEnum.Weak
+            RESIST_AFFINITY_CHAR -> CardAffinityEnum.Resist
+            DUMMY_NORMAL_AFFINITY_CHAR -> CardAffinityEnum.Normal
+            else ->
+                raiseParseError(
+                    "$CARD_PRIORITY_ERROR_MSG${cardString[AFFINITY_POSITION]}': Only 'W', and 'R' are valid card affinities.",
+                )
+        }
 
         /**
          * Parses the type of the card.
@@ -162,28 +160,26 @@ class CardPriority private constructor(
          * @param cardString The card string to parse.
          * @see CardTypeEnum
          */
-        private fun parseCardType(cardString: String) =
-            try {
-                CardTypeEnum.from(char = cardString[TYPE_POSITION])
-            } catch (e: Exception) {
-                val errorMsg =
-                    "$CARD_PRIORITY_ERROR_MSG${cardString[TYPE_POSITION]}': Only 'B', 'A' and 'Q' are valid card types."
-                raiseParseError(e.message ?: errorMsg)
-            }
+        private fun parseCardType(cardString: String) = try {
+            CardTypeEnum.from(char = cardString[TYPE_POSITION])
+        } catch (e: Exception) {
+            val errorMsg =
+                "$CARD_PRIORITY_ERROR_MSG${cardString[TYPE_POSITION]}': Only 'B', 'A' and 'Q' are valid card types."
+            raiseParseError(e.message ?: errorMsg)
+        }
 
-        private fun formatCardString(cardString: String) =
-            when (cardString.length) {
-                1 -> "$DUMMY_NORMAL_AFFINITY_CHAR$cardString$DUMMY_NORMAL_CRIT_CHAR"
-                2 -> {
-                    if (cardString[AFFINITY_POSITION] == WEAK_AFFINITY_CHAR || cardString[AFFINITY_POSITION] == RESIST_AFFINITY_CHAR) {
-                        "$cardString$DUMMY_NORMAL_CRIT_CHAR"
-                    } else {
-                        "$DUMMY_NORMAL_AFFINITY_CHAR$cardString"
-                    }
+        private fun formatCardString(cardString: String) = when (cardString.length) {
+            1 -> "$DUMMY_NORMAL_AFFINITY_CHAR$cardString$DUMMY_NORMAL_CRIT_CHAR"
+            2 -> {
+                if (cardString[AFFINITY_POSITION] == WEAK_AFFINITY_CHAR || cardString[AFFINITY_POSITION] == RESIST_AFFINITY_CHAR) {
+                    "$cardString$DUMMY_NORMAL_CRIT_CHAR"
+                } else {
+                    "$DUMMY_NORMAL_AFFINITY_CHAR$cardString"
                 }
-
-                3 -> cardString
-                else -> raiseParseError("$CARD_PRIORITY_ERROR_MSG$cardString': Invalid card length.")
             }
+
+            3 -> cardString
+            else -> raiseParseError("$CARD_PRIORITY_ERROR_MSG$cardString': Invalid card length.")
+        }
     }
 }

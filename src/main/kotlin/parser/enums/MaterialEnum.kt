@@ -175,10 +175,9 @@ private val silverMaterials =
         MaterialEnum.SkillRedBerserker,
     )
 
-fun MaterialEnum.rarity(): MaterialRarity =
-    when (this) {
-        in copperMaterials -> MaterialRarity.Copper
-        in silverMaterials -> MaterialRarity.Silver
+fun MaterialEnum.rarity(): MaterialRarity = when (this) {
+    in copperMaterials -> MaterialRarity.Copper
+    in silverMaterials -> MaterialRarity.Silver
 
-        else -> MaterialRarity.Gold
-    }
+    else -> MaterialRarity.Gold
+}

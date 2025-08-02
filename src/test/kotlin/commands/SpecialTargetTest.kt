@@ -8,7 +8,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 
-
 class SpecialTargetTest {
     /**
      * Servants
@@ -25,24 +24,25 @@ class SpecialTargetTest {
         assertEquals(
             expected = command,
             actual = action.codes,
-            message = "Action codes should be '$command'"
+            message = "Action codes should be '$command'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS1>(
             action.skillSource,
-            message = "Action skill source should be AS1"
+            message = "Action skill source should be AS1",
         )
 
         assertEquals(
-            1, action.targets.size,
-            message = "Action should have one target"
+            1,
+            action.targets.size,
+            message = "Action should have one target",
         )
 
         assertIs<SkillActionsTarget.SpecialSkill.Choice2OptionA>(
             action.targets[0],
-            message = "Action target should be Choice2OptionA"
+            message = "Action target should be Choice2OptionA",
         )
     }
 
@@ -61,24 +61,25 @@ class SpecialTargetTest {
         assertEquals(
             expected = command,
             actual = action.codes,
-            message = "Action codes should be '$command'"
+            message = "Action codes should be '$command'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS1>(
             action.skillSource,
-            message = "Action skill source should be AS1"
+            message = "Action skill source should be AS1",
         )
 
         assertEquals(
-            1, action.targets.size,
-            message = "Action should have one target"
+            1,
+            action.targets.size,
+            message = "Action should have one target",
         )
 
         assertIs<SkillActionsTarget.SpecialSkill.Choice3OptionA>(
             action.targets[0],
-            message = "Action target should be Choice3OptionA"
+            message = "Action target should be Choice3OptionA",
         )
     }
 
@@ -97,29 +98,30 @@ class SpecialTargetTest {
         assertEquals(
             expected = command,
             actual = action.codes,
-            message = "Action codes should be '$command'"
+            message = "Action codes should be '$command'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS2>(
             action.skillSource,
-            message = "Action skill source should be AS2"
+            message = "Action skill source should be AS2",
         )
 
         assertEquals(
-            2, action.targets.size,
-            message = "Action should have two targets"
+            2,
+            action.targets.size,
+            message = "Action should have two targets",
         )
 
         assertIs<SkillActionsTarget.SpecialSkill.Choice2OptionA>(
             action.targets[0],
-            message = "Action target should be Choice2OptionA"
+            message = "Action target should be Choice2OptionA",
         )
 
         assertIs<SkillActionsTarget.B>(
             action.targets[1],
-            message = "Action target should be B"
+            message = "Action target should be B",
         )
     }
 
@@ -138,24 +140,25 @@ class SpecialTargetTest {
         assertEquals(
             expected = command,
             actual = action.codes,
-            message = "Action codes should be '$command'"
+            message = "Action codes should be '$command'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS2>(
             action.skillSource,
-            message = "Action skill source should be AS2"
+            message = "Action skill source should be AS2",
         )
 
         assertEquals(
-            1, action.targets.size,
-            message = "Action should have one target"
+            1,
+            action.targets.size,
+            message = "Action should have one target",
         )
 
         assertIs<SkillActionsTarget.SpecialSkill.Choice2OptionA>(
             action.targets[0],
-            message = "Action target should be Choice2OptionA"
+            message = "Action target should be Choice2OptionA",
         )
     }
 
@@ -175,24 +178,25 @@ class SpecialTargetTest {
         assertEquals(
             expected = command,
             actual = action.codes,
-            message = "Action codes should be '$command'"
+            message = "Action codes should be '$command'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS3>(
             action.skillSource,
-            message = "Action skill source should be AS3"
+            message = "Action skill source should be AS3",
         )
 
         assertEquals(
-            1, action.targets.size,
-            message = "Action should have one target"
+            1,
+            action.targets.size,
+            message = "Action should have one target",
         )
 
         assertIs<SkillActionsTarget.SpecialSkill.Choice2OptionB>(
             action.targets[0],
-            message = "Action target should be Choice2OptionB"
+            message = "Action target should be Choice2OptionB",
         )
     }
 
@@ -212,24 +216,25 @@ class SpecialTargetTest {
         assertEquals(
             expected = command,
             actual = action.codes,
-            message = "Action codes should be '$command'"
+            message = "Action codes should be '$command'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS3>(
             action.skillSource,
-            message = "Action skill source should be AS3"
+            message = "Action skill source should be AS3",
         )
 
         assertEquals(
-            1, action.targets.size,
-            message = "Action should have one target"
+            1,
+            action.targets.size,
+            message = "Action should have one target",
         )
 
         assertIs<SkillActionsTarget.Left>(
             action.targets[0],
-            message = "Action target should be Left"
+            message = "Action target should be Left",
         )
     }
 
@@ -251,24 +256,25 @@ class SpecialTargetTest {
         assertEquals(
             expected = command,
             actual = action.codes,
-            message = "Action codes should be '$command'"
+            message = "Action codes should be '$command'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS3>(
             action.skillSource,
-            message = "Action skill source should be AS3"
+            message = "Action skill source should be AS3",
         )
 
         assertEquals(
-            1, action.targets.size,
-            message = "Action should have one target"
+            1,
+            action.targets.size,
+            message = "Action should have one target",
         )
 
         assertIs<SkillActionsTarget.SpecialSkill.Choice3OptionA>(
             action.targets[0],
-            message = "Action target should be Choice3OptionA"
+            message = "Action target should be Choice3OptionA",
         )
     }
 
@@ -288,24 +294,25 @@ class SpecialTargetTest {
         assertEquals(
             expected = command,
             actual = action.codes,
-            message = "Action codes should be '$command'"
+            message = "Action codes should be '$command'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS3>(
             action.skillSource,
-            message = "Action skill source should be AS3"
+            message = "Action skill source should be AS3",
         )
 
         assertEquals(
-            1, action.targets.size,
-            message = "Action should have one target"
+            1,
+            action.targets.size,
+            message = "Action should have one target",
         )
 
         assertIs<SkillActionsTarget.SpecialSkill.Transform>(
             action.targets[0],
-            message = "Action target should be Transform"
+            message = "Action target should be Transform",
         )
     }
 }

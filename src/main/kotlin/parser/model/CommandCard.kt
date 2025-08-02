@@ -38,9 +38,8 @@ sealed class CommandCard {
     }
 }
 
-fun CommandCard.NP.toFieldSlot() =
-    when (this) {
-        CommandCard.NP.A -> FieldSlot.A
-        CommandCard.NP.B -> FieldSlot.B
-        CommandCard.NP.C -> FieldSlot.C
-    }
+fun CommandCard.NP.toFieldSlot() = when (this) {
+    CommandCard.NP.A -> FieldSlot.A
+    CommandCard.NP.B -> FieldSlot.B
+    CommandCard.NP.C -> FieldSlot.C
+}
