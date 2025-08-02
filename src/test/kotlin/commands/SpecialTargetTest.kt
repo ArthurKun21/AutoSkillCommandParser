@@ -5,6 +5,8 @@ import io.arthurkun.parser.model.AutoSkillCommand
 import io.arthurkun.parser.model.SkillActionsTarget
 import io.arthurkun.parser.model.SkillSource
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertIs
 
 
 class SpecialTargetTest {
@@ -20,19 +22,28 @@ class SpecialTargetTest {
 
         val action = stage1turn1[0]
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.skillSource is SkillSource.Servant.AS1
-        ) {
-            "Action should be AS1 skill"
-        }
+        assertEquals(
+            expected = command,
+            actual = action.codes,
+            message = "Action codes should be '$command'"
+        )
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.codes == "a[Ch2A]"
-        ) {
-            "Skill slot should be 'a[Ch2A]', but was '${action.codes}'"
-        }
+        assertIs<AutoSkillAction.ServantSkill>(action)
+
+        assertIs<SkillSource.Servant.AS1>(
+            action.skillSource,
+            message = "Action skill source should be AS1"
+        )
+
+        assertEquals(
+            1, action.targets.size,
+            message = "Action should have one target"
+        )
+
+        assertIs<SkillActionsTarget.SpecialSkill.Choice2OptionA>(
+            action.targets[0],
+            message = "Action target should be Choice2OptionA"
+        )
     }
 
     /**
@@ -47,26 +58,28 @@ class SpecialTargetTest {
 
         val action = stage1turn1[0]
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.skillSource is SkillSource.Servant.AS1
-        ) {
-            "Action should be AS1 skill"
-        }
+        assertEquals(
+            expected = command,
+            actual = action.codes,
+            message = "Action codes should be '$command'"
+        )
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.codes == "a[Ch3A]"
-        ) {
-            "Skill slot should be 'a[Ch3A]', but was '${action.codes}'"
-        }
+        assertIs<AutoSkillAction.ServantSkill>(action)
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.targets[0] is SkillActionsTarget.SpecialSkill.Choice3OptionA
-        ) {
-            "Skill slot should be '[Ch3A]', but was '${action.codes}'"
-        }
+        assertIs<SkillSource.Servant.AS1>(
+            action.skillSource,
+            message = "Action skill source should be AS1"
+        )
+
+        assertEquals(
+            1, action.targets.size,
+            message = "Action should have one target"
+        )
+
+        assertIs<SkillActionsTarget.SpecialSkill.Choice3OptionA>(
+            action.targets[0],
+            message = "Action target should be Choice3OptionA"
+        )
     }
 
     /**
@@ -81,27 +94,33 @@ class SpecialTargetTest {
 
         val action = stage1turn1[0]
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.skillSource is SkillSource.Servant.AS2
-        ) {
-            "Action should be AS2 skill"
-        }
+        assertEquals(
+            expected = command,
+            actual = action.codes,
+            message = "Action codes should be '$command'"
+        )
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.codes == "b([Ch2A]2)"
-        ) {
-            "Skill slot should be 'b([Ch2A]2)', but was '${action.codes}'"
-        }
+        assertIs<AutoSkillAction.ServantSkill>(action)
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.targets[0] is SkillActionsTarget.SpecialSkill.Choice2OptionA &&
-                    action.targets[1] is SkillActionsTarget.B
-        ) {
-            "Skill slot should be '[Ch2A]' and '2', but was '${action.codes}'"
-        }
+        assertIs<SkillSource.Servant.AS2>(
+            action.skillSource,
+            message = "Action skill source should be AS2"
+        )
+
+        assertEquals(
+            2, action.targets.size,
+            message = "Action should have two targets"
+        )
+
+        assertIs<SkillActionsTarget.SpecialSkill.Choice2OptionA>(
+            action.targets[0],
+            message = "Action target should be Choice2OptionA"
+        )
+
+        assertIs<SkillActionsTarget.B>(
+            action.targets[1],
+            message = "Action target should be B"
+        )
     }
 
     /**
@@ -116,26 +135,28 @@ class SpecialTargetTest {
 
         val action = stage1turn1[0]
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.skillSource is SkillSource.Servant.AS2
-        ) {
-            "Action should be AS2 skill"
-        }
+        assertEquals(
+            expected = command,
+            actual = action.codes,
+            message = "Action codes should be '$command'"
+        )
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.codes == "b[Ch2A]"
-        ) {
-            "Skill slot should be 'b[Ch2A]', but was '${action.codes}'"
-        }
+        assertIs<AutoSkillAction.ServantSkill>(action)
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.targets[0] is SkillActionsTarget.SpecialSkill.Choice2OptionA
-        ) {
-            "Skill slot should be '[Ch2A]', but was '${action.codes}'"
-        }
+        assertIs<SkillSource.Servant.AS2>(
+            action.skillSource,
+            message = "Action skill source should be AS2"
+        )
+
+        assertEquals(
+            1, action.targets.size,
+            message = "Action should have one target"
+        )
+
+        assertIs<SkillActionsTarget.SpecialSkill.Choice2OptionA>(
+            action.targets[0],
+            message = "Action target should be Choice2OptionA"
+        )
     }
 
     /**
@@ -151,26 +172,28 @@ class SpecialTargetTest {
 
         val action = stage1turn1[0]
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.skillSource is SkillSource.Servant.AS3
-        ) {
-            "Action should be AS3 skill"
-        }
+        assertEquals(
+            expected = command,
+            actual = action.codes,
+            message = "Action codes should be '$command'"
+        )
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.codes == "c[Ch2B]"
-        ) {
-            "Skill slot should be 'c[Ch2B]', but was '${action.codes}'"
-        }
+        assertIs<AutoSkillAction.ServantSkill>(action)
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.targets[0] is SkillActionsTarget.SpecialSkill.Choice2OptionB
-        ) {
-            "Skill slot should be '[Ch2B]', but was '${action.codes}'"
-        }
+        assertIs<SkillSource.Servant.AS3>(
+            action.skillSource,
+            message = "Action skill source should be AS3"
+        )
+
+        assertEquals(
+            1, action.targets.size,
+            message = "Action should have one target"
+        )
+
+        assertIs<SkillActionsTarget.SpecialSkill.Choice2OptionB>(
+            action.targets[0],
+            message = "Action target should be Choice2OptionB"
+        )
     }
 
     /**
@@ -186,26 +209,28 @@ class SpecialTargetTest {
 
         val action = stage1turn1[0]
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.skillSource is SkillSource.Servant.AS3
-        ) {
-            "Action should be AS3 skill"
-        }
+        assertEquals(
+            expected = command,
+            actual = action.codes,
+            message = "Action codes should be '$command'"
+        )
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.codes == "c7"
-        ) {
-            "Skill slot should be 'c7', but was '${action.codes}'"
-        }
+        assertIs<AutoSkillAction.ServantSkill>(action)
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.targets[0] is SkillActionsTarget.Left
-        ) {
-            "Skill slot should be '7', but was '${action.codes}'"
-        }
+        assertIs<SkillSource.Servant.AS3>(
+            action.skillSource,
+            message = "Action skill source should be AS3"
+        )
+
+        assertEquals(
+            1, action.targets.size,
+            message = "Action should have one target"
+        )
+
+        assertIs<SkillActionsTarget.Left>(
+            action.targets[0],
+            message = "Action target should be Left"
+        )
     }
 
     /**
@@ -223,26 +248,28 @@ class SpecialTargetTest {
 
         val action = stage1turn1[0]
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.skillSource is SkillSource.Servant.AS3
-        ) {
-            "Action should be AS3 skill"
-        }
+        assertEquals(
+            expected = command,
+            actual = action.codes,
+            message = "Action codes should be '$command'"
+        )
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.codes == "c[Ch3A]"
-        ) {
-            "Skill slot should be 'c[Ch3A]', but was '${action.codes}'"
-        }
+        assertIs<AutoSkillAction.ServantSkill>(action)
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.targets[0] is SkillActionsTarget.SpecialSkill.Choice3OptionA
-        ) {
-            "Skill slot should be '[Ch3A]', but was '${action.codes}'"
-        }
+        assertIs<SkillSource.Servant.AS3>(
+            action.skillSource,
+            message = "Action skill source should be AS3"
+        )
+
+        assertEquals(
+            1, action.targets.size,
+            message = "Action should have one target"
+        )
+
+        assertIs<SkillActionsTarget.SpecialSkill.Choice3OptionA>(
+            action.targets[0],
+            message = "Action target should be Choice3OptionA"
+        )
     }
 
     /**
@@ -258,25 +285,27 @@ class SpecialTargetTest {
 
         val action = stage1turn1[0]
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.skillSource is SkillSource.Servant.AS3
-        ) {
-            "Action should be AS3 skill"
-        }
+        assertEquals(
+            expected = command,
+            actual = action.codes,
+            message = "Action codes should be '$command'"
+        )
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.codes == "c[Tfrm]"
-        ) {
-            "Skill slot should be 'c[Tfrm]', but was '${action.codes}'"
-        }
+        assertIs<AutoSkillAction.ServantSkill>(action)
 
-        assert(
-            action is AutoSkillAction.ServantSkill &&
-                    action.targets[0] is SkillActionsTarget.SpecialSkill.Transform
-        ) {
-            "Skill slot should be '[Tfrm]', but was '${action.codes}'"
-        }
+        assertIs<SkillSource.Servant.AS3>(
+            action.skillSource,
+            message = "Action skill source should be AS3"
+        )
+
+        assertEquals(
+            1, action.targets.size,
+            message = "Action should have one target"
+        )
+
+        assertIs<SkillActionsTarget.SpecialSkill.Transform>(
+            action.targets[0],
+            message = "Action target should be Transform"
+        )
     }
 }
