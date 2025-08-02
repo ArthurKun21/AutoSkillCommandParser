@@ -1,5 +1,6 @@
 plugins {
-    kotlin("jvm") version "2.2.0"
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.spotless)
 }
 
 group = "io.arthurkun"
@@ -21,4 +22,21 @@ tasks.test {
 }
 kotlin {
     jvmToolchain(17)
+}
+
+spotless {
+    kotlin {
+        target("**/*.kt", "**/*.kts")
+        targetExclude("**/build/**/*.kt")
+        ktlint(libs.ktlint.core.get().version).editorConfigOverride(
+            mapOf("ktlint_standard_annotation" to "disabled")
+        )
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+    format("xml") {
+        target("**/*.xml")
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
 }
