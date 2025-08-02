@@ -22,6 +22,9 @@ tasks.test {
 }
 kotlin {
     jvmToolchain(17)
+    compilerOptions {
+        suppressWarnings = true
+    }
 }
 
 spotless {
