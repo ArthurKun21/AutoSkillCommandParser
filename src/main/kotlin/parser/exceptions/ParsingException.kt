@@ -27,6 +27,10 @@ sealed class ParsingException(
 
     class MissingServantTarget() : ParsingException("Missing servant target")
 
+    class UnknownServantTarget(
+        target: String,
+    ) : ParsingException("Unknown servant target: $target")
+
     class IncompleteCommand : ParsingException("Incomplete command")
 
     class SkillCommandParseError(

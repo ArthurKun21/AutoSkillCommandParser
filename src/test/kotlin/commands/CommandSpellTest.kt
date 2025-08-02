@@ -75,6 +75,14 @@ class CommandSpellTest {
         }
     }
 
+    @Test
+    fun `Command Spell target should be field servant`() {
+        assertFails {
+            val failCommand = "p[Ch2A]"
+            AutoSkillCommand.parse(failCommand)
+        }
+    }
+
     // Disabled: The parser currently does not throw an error for
     // command spell strings that exceed the maximum number of commands.
     // Once parser validation is implemented,
