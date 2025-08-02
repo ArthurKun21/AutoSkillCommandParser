@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.2.0"
-spotless = "7.1.0"
+spotless = "7.2.1"
 ktlint-core = "1.6.0"
 
 [libraries]
