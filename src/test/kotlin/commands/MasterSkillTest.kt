@@ -1,10 +1,7 @@
 package commands
 
 import io.arthurkun.parser.model.*
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertIs
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class MasterSkillTest {
 
@@ -144,5 +141,14 @@ class MasterSkillTest {
             actual = action.sub,
             message = "Action sub-member should be A"
         )
+    }
+
+    @Test
+    fun `Incomplete Order Change fail`() {
+        val command = "x1"
+
+        assertFails {
+            AutoSkillCommand.parse(command)
+        }
     }
 }
