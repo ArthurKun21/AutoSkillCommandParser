@@ -136,13 +136,13 @@ class MasterSkillTest {
         assertEquals(
             expected = OrderChangeMember.Starting.A,
             actual = action.starting,
-            message = "Action should start with A"
+            message = "Action starting-member should be A"
         )
 
         assertEquals(
             expected = OrderChangeMember.Sub.A,
             actual = action.sub,
-            message = "Action should start with A"
+            message = "Action sub-member should be A"
         )
     }
 }
