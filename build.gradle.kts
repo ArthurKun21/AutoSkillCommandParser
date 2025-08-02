@@ -45,6 +45,10 @@ spotless {
 tasks.register<Copy>("installLocalGitHook") {
 	from(File("${project.rootDir}/pre-push"))
 	into(File(rootProject.rootDir, ".git/hooks"))
+    doLast {
+        val hookFile = File(rootProject.rootDir, ".git/hooks/pre-push")
+        hookFile.setExecutable(true, false)
+    }
 }
 tasks.named("build") {
 	dependsOn("installLocalGitHook")
