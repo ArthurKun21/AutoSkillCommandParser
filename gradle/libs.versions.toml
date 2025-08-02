@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.2.0"
 spotless = "7.2.1"
-ktlint-core = "1.6.0"
+ktlint-core = "1.7.1"
 
 [libraries]
 ktlint-core = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint-core" }
