@@ -105,7 +105,7 @@ sealed class ParsingReason(val message: String) {
      * @param exception The underlying exception that caused the parsing error
      */
     class SkillCommandParseError(
-        exception: Exception,
+        val exception: Exception,
     ) : ParsingReason("Error parsing skill command: ${exception.message ?: exception.toString()}")
 
     /**
