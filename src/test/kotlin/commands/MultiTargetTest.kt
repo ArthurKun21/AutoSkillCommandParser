@@ -1,3 +1,5 @@
+package commands
+
 import io.arthurkun.parser.model.AutoSkillAction
 import io.arthurkun.parser.model.AutoSkillCommand
 import io.arthurkun.parser.model.SkillActionsTarget

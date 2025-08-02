@@ -1,3 +1,5 @@
+package commands
+
 import io.arthurkun.parser.model.AutoSkillCommand
 import kotlin.test.Test
 import kotlin.test.assertTrue
