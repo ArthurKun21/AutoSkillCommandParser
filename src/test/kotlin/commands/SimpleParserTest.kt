@@ -189,7 +189,7 @@ class SimpleParserTest {
         assertEquals(
             expected = setOf(CommandCard.NP.A),
             actual = action1.nps,
-            message = "Action NP should be B"
+            message = "Action NP should be A"
         )
 
         assertEquals(
@@ -201,19 +201,19 @@ class SimpleParserTest {
         assertEquals(
             expected = 3,
             actual = action1.wave,
-            message = "Action wave should be 2"
+            message = "Action wave should be 3"
         )
 
         assertEquals(
             expected = 3,
             actual = action1.turn,
-            message = "Action wave should be 2"
+            message = "Action wave should be 3"
         )
 
         assertEquals(
             expected = "4",
             actual = action1.codes,
-            message = "Action codes should be '5'"
+            message = "Action codes should be '4'"
         )
     }
 }
