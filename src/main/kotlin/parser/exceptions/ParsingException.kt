@@ -1,6 +1,6 @@
 package io.arthurkun.parser.exceptions
 
-class ParsingException(val reason: ParsingReason) : Exception(reason.message)
+class ParsingException(reason: ParsingReason) : Exception(reason.message)
 
 sealed class ParsingReason(val message: String) {
     class MissingEndTarget(
