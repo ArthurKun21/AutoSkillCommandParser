@@ -8,25 +8,14 @@ import kotlin.test.Test
 
 
 class SpecialTargetTest {
-    companion object Companion {
-        private const val COMMAND = "a[Ch2A]a[Ch3A]b([Ch2A]2)b[Ch2A]c[Ch2B]c7c[Ch3A]c[Tfrm]"
-    }
-
-    val parsedCommand: AutoSkillCommand = AutoSkillCommand.parse(COMMAND)
-
-    @Test
-    fun `commands should not be empty`() {
-        assert(parsedCommand.stages.isNotEmpty()) {
-            "Parsed command should not be empty"
-        }
-    }
-
     /**
      * Servants
      * - Kukulcan
      */
     @Test
     fun `First Skill Slot - Choice 2`() {
+        val command = "a[Ch2A]"
+        val parsedCommand: AutoSkillCommand = AutoSkillCommand.parse(command)
         val stage1turn1 = parsedCommand[0, 0]
 
         val action = stage1turn1[0]
@@ -52,9 +41,11 @@ class SpecialTargetTest {
      */
     @Test
     fun `First Skill Slot - Choice 3`() {
+        val command = "a[Ch3A]"
+        val parsedCommand: AutoSkillCommand = AutoSkillCommand.parse(command)
         val stage1turn1 = parsedCommand[0, 0]
 
-        val action = stage1turn1[1]
+        val action = stage1turn1[0]
 
         assert(
             action is AutoSkillAction.ServantSkill &&
@@ -84,9 +75,11 @@ class SpecialTargetTest {
      */
     @Test
     fun `Second Skill Slot - Choice 2 Multi Target`() {
+        val command = "b([Ch2A]2)"
+        val parsedCommand: AutoSkillCommand = AutoSkillCommand.parse(command)
         val stage1turn1 = parsedCommand[0, 0]
 
-        val action = stage1turn1[2]
+        val action = stage1turn1[0]
 
         assert(
             action is AutoSkillAction.ServantSkill &&
@@ -117,9 +110,11 @@ class SpecialTargetTest {
      */
     @Test
     fun `Second Skill Slot - Choice 2`() {
+        val command = "b[Ch2A]"
+        val parsedCommand: AutoSkillCommand = AutoSkillCommand.parse(command)
         val stage1turn1 = parsedCommand[0, 0]
 
-        val action = stage1turn1[3]
+        val action = stage1turn1[0]
 
         assert(
             action is AutoSkillAction.ServantSkill &&
@@ -150,9 +145,11 @@ class SpecialTargetTest {
      */
     @Test
     fun `Third Skill Slot - Choice 2`() {
+        val command = "c[Ch2B]"
+        val parsedCommand: AutoSkillCommand = AutoSkillCommand.parse(command)
         val stage1turn1 = parsedCommand[0, 0]
 
-        val action = stage1turn1[4]
+        val action = stage1turn1[0]
 
         assert(
             action is AutoSkillAction.ServantSkill &&
@@ -183,9 +180,11 @@ class SpecialTargetTest {
      */
     @Test
     fun `Third Skill Slot - NP Type 2`() {
+        val command = "c7"
+        val parsedCommand: AutoSkillCommand = AutoSkillCommand.parse(command)
         val stage1turn1 = parsedCommand[0, 0]
 
-        val action = stage1turn1[5]
+        val action = stage1turn1[0]
 
         assert(
             action is AutoSkillAction.ServantSkill &&
@@ -218,9 +217,11 @@ class SpecialTargetTest {
      */
     @Test
     fun `Third Skill Slot - Choice 3`() {
+        val command = "c[Ch3A]"
+        val parsedCommand: AutoSkillCommand = AutoSkillCommand.parse(command)
         val stage1turn1 = parsedCommand[0, 0]
 
-        val action = stage1turn1[6]
+        val action = stage1turn1[0]
 
         assert(
             action is AutoSkillAction.ServantSkill &&
@@ -251,9 +252,11 @@ class SpecialTargetTest {
      */
     @Test
     fun `Third Skill Slot - Transform`() {
+        val command = "c[Tfrm]"
+        val parsedCommand: AutoSkillCommand = AutoSkillCommand.parse(command)
         val stage1turn1 = parsedCommand[0, 0]
 
-        val action = stage1turn1[7]
+        val action = stage1turn1[0]
 
         assert(
             action is AutoSkillAction.ServantSkill &&
