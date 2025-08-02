@@ -2,15 +2,22 @@ import io.arthurkun.parser.model.AutoSkillAction
 import io.arthurkun.parser.model.AutoSkillCommand
 import io.arthurkun.parser.model.CommandCard
 import io.arthurkun.parser.model.SkillSource
+import org.junit.jupiter.api.BeforeAll
 import kotlin.test.*
 
 
 class SimpleParserTest {
-    companion object Companion {
-        private const val COMMAND = "i6,#,gf5,#,4"
-    }
 
-    val parsedCommand: AutoSkillCommand = AutoSkillCommand.parse(COMMAND)
+    companion object {
+        private lateinit var parsedCommand: AutoSkillCommand
+
+        @BeforeAll
+        @JvmStatic
+        fun setup() {
+            val command = "i6,#,gf5,#,4"
+            parsedCommand = AutoSkillCommand.parse(command)
+        }
+    }
 
     @Test
     fun `commands should not be empty`() {
