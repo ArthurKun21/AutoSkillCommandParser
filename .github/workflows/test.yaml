@@ -12,6 +12,7 @@ on:
       - 'docs/**'
       - '.github/**'
       - '!.github/workflows/**'
+      - 'renovate.json'
   pull_request:
     paths-ignore:
       - '**.md'
@@ -21,6 +22,7 @@ on:
       - 'docs/**'
       - '.github/**'
       - '!.github/workflows/**'
+      - 'renovate.json'
 
 env:
   JAVA_VERSION: 17
