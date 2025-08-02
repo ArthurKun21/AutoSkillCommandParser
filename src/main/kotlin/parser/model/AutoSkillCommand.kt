@@ -38,6 +38,11 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
     fun commandTurnsAtStage(stage: Int): Int = stages.getOrNull(stage)?.flatten()?.size ?: 0
 
     private class CommandParser {
+
+        companion object {
+            private const val MAX_COMMAND_SPELLS = 3
+        }
+
         fun parseCommand(command: String): AutoSkillCommand {
             val trimmedCommand = command.trim()
             if (trimmedCommand.isEmpty()) return AutoSkillCommand(emptyList())
@@ -78,7 +83,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                     // track the number of command spells used
                     if (action is AutoSkillAction.CommandSpell) {
                         commandSpellUsed++
-                        if (commandSpellUsed > 3) {
+                        if (commandSpellUsed > MAX_COMMAND_SPELLS) {
                             throw ParsingException.AllCommandSpellsAlreadyUsed()
                         }
                     }
