@@ -25,6 +25,7 @@ kotlin {
 }
 
 spotless {
+	ratchetFrom("origin/master")
 	kotlin {
 		target("**/*.kt", "**/*.kts")
 		targetExclude("**/build/**/*.kt")
