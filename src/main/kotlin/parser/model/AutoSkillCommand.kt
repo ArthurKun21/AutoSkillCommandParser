@@ -38,6 +38,11 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
     fun commandTurnsAtStage(stage: Int): Int = stages.getOrNull(stage)?.flatten()?.size ?: 0
 
     private class CommandParser {
+
+        companion object {
+            private const val MAX_COMMAND_SPELLS = 3
+        }
+
         fun parseCommand(command: String): AutoSkillCommand {
             val trimmedCommand = command.trim()
             if (trimmedCommand.isEmpty()) return AutoSkillCommand(emptyList())
@@ -69,9 +74,19 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
             val queue: Deque<Char> = ArrayDeque(cmd.length)
             queue.addAll(cmd.asIterable())
 
+            var commandSpellUsed = 0
+
             return buildList {
                 while (queue.isNotEmpty()) {
                     val action = parseAction(queue = queue, wave = wave, turn = turn)
+
+                    // track the number of command spells used
+                    if (action is AutoSkillAction.CommandSpell) {
+                        commandSpellUsed++
+                        if (commandSpellUsed > MAX_COMMAND_SPELLS) {
+                            throw ParsingException.AllCommandSpellsAlreadyUsed()
+                        }
+                    }
 
                     // merge NPs and cards before NPs
                     if (isNotEmpty() && action is AutoSkillAction.Atk) {
@@ -130,6 +145,12 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                     in commandSpellCodes -> {
                         val spell = SkillSource.CommandSpell.list.first { it.autoSkillCode == currentChar }
                         val (actionTarget, targetCodes) = getTarget(queue)
+
+                        val target = actionTarget ?: throw ParsingException.MissingServantTarget()
+
+                        if (target !in SkillActionsTarget.fieldList) {
+                            throw ParsingException.UnknownServantTarget(targetCodes)
+                        }
 
                         val codes = "$currentChar$targetCodes"
 

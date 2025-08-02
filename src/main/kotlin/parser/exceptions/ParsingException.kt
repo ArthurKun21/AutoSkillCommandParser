@@ -25,6 +25,14 @@ sealed class ParsingException(
         char: Char,
     ) : ParsingException("Unknown enemy target: $char")
 
+    class MissingServantTarget : ParsingException("Missing servant target")
+
+    class UnknownServantTarget(
+        target: String,
+    ) : ParsingException("Unknown servant target: $target")
+
+    class AllCommandSpellsAlreadyUsed : ParsingException("All command spells already used")
+
     class IncompleteCommand : ParsingException("Incomplete command")
 
     class SkillCommandParseError(
