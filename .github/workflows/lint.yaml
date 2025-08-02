@@ -1,4 +1,4 @@
-name: run Lint
+name: Run Lint
 
 on:
   pull_request:
@@ -17,7 +17,7 @@ env:
   JAVA_DISTRO: 'temurin'
 
 jobs:
-  test-app:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
