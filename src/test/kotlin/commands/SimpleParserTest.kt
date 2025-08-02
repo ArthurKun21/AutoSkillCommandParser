@@ -14,8 +14,8 @@ class SimpleParserTest {
 
     @Test
     fun `commands should not be empty`() {
-        assert(parsedCommand.stages.isNotEmpty()) {
-            "Parsed command should not be empty"
+        assertTrue("Parsed command should not be empty") {
+            parsedCommand.stages.isNotEmpty()
         }
     }
 
