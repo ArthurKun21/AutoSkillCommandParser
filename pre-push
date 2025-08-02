@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo "*****Running spotless apply******"
+
+./gradlew spotlessApply
+
+if [ $? -ne 0 ]; then
+  echo "Spotless apply failed. Please fix the issues and try again."
+  exit 1
+fi
+
+echo "*****Spotless apply completed successfully******"
+
+exit 0
