@@ -2,7 +2,10 @@
 
 echo "*****Running spotless apply******"
 
-./gradlew spotlessApply
+./gradlew spotlessCheck || {
+  echo "Spotless check failed. Please fix the issues before pushing."
+  exit 1
+}
 
 if ! git diff --quiet; then  
   echo "Spotless applied changes. Please stage them and commit again."  
