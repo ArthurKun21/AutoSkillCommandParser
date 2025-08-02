@@ -42,11 +42,10 @@ spotless {
 	}
 }
 
-tasks.register<Copy>("installLocalGitHook"){
+tasks.register<Copy>("installLocalGitHook") {
 	from(File("${project.rootDir}/pre-push"))
 	into(File(rootProject.rootDir, ".git/hooks"))
 }
 tasks.named("build") {
 	dependsOn("installLocalGitHook")
 }
-
