@@ -1,9 +1,6 @@
 package commands
 
-import io.arthurkun.parser.model.AutoSkillAction
-import io.arthurkun.parser.model.AutoSkillCommand
-import io.arthurkun.parser.model.SkillActionsTarget
-import io.arthurkun.parser.model.SkillSource
+import io.arthurkun.parser.model.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
@@ -114,5 +111,38 @@ class MasterSkillTest {
         )
 
         assertEquals(skillSource, action.skillSource)
+    }
+
+    @Test
+    fun `Master Skill's Order Change`() {
+        val command = "x11"
+        val parsedCommand: AutoSkillCommand = AutoSkillCommand.parse(command)
+        val currentStage = parsedCommand[0, 0]
+
+        assertTrue {
+            currentStage.isNotEmpty()
+        }
+
+        val action = currentStage[0]
+
+        assertIs<AutoSkillAction.OrderChange>(action)
+
+        assertEquals(
+            expected = command,
+            actual = action.codes,
+            message = "Action codes should be '$command'"
+        )
+
+        assertEquals(
+            expected = OrderChangeMember.Starting.A,
+            actual = action.starting,
+            message = "Action should start with A"
+        )
+
+        assertEquals(
+            expected = OrderChangeMember.Sub.A,
+            actual = action.sub,
+            message = "Action should start with A"
+        )
     }
 }
