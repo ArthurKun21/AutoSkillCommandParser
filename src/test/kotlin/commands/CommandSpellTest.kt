@@ -66,7 +66,10 @@ class CommandSpellTest {
         )
     }
 
-    // TODO: For Fix
+    // Disabled: The parser currently does not throw an error for
+    // incomplete command spell strings (e.g., "op2").
+    // Once parser validation is implemented,
+    // this test should be enabled to ensure incomplete commands fail as expected.
 //    @Test
 //    fun `Incomplete Command Spell should fail`() {
 //        assertFails {
