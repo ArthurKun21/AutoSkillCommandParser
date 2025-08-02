@@ -73,7 +73,7 @@ class MasterSkillTest {
             action = action2,
             command = "k1",
             target = SkillActionsTarget.A,
-            targetMessage = "Action should target B",
+            targetMessage = "Action should target A",
             skillSource = SkillSource.Master.MC2
         )
 
@@ -83,7 +83,7 @@ class MasterSkillTest {
             action = action3,
             command = "l1",
             target = SkillActionsTarget.A,
-            targetMessage = "Action should target C",
+            targetMessage = "Action should target A",
             skillSource = SkillSource.Master.MC3
         )
     }
