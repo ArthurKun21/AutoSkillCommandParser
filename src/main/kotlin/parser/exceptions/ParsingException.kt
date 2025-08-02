@@ -1,43 +1,43 @@
 package io.arthurkun.parser.exceptions
 
-sealed class ParsingException(
-    message: String,
-) : Exception(message) {
+class ParsingException(val reason: ParsingReason) : Exception(reason.message)
+
+sealed class ParsingReason(val message: String) {
     class MissingEndTarget(
         char: Char,
-    ) : ParsingException("Missing end target: $char")
+    ) : ParsingReason("Missing end target: $char")
 
-    class EmptyCommand : ParsingException("Command cannot be empty")
+    object EmptyCommand : ParsingReason("Command cannot be empty")
 
     class UnknownSpecialTarget(
         target: String,
-    ) : ParsingException("Special target \"$target\" not found")
+    ) : ParsingReason("Special target \"$target\" not found")
 
     class UnknownCommand(
         char: Char,
-    ) : ParsingException("Unknown character: $char")
+    ) : ParsingReason("Unknown character: $char")
 
     class InvalidNumber(
         char: Char,
-    ) : ParsingException("Invalid number char: $char")
+    ) : ParsingReason("Invalid number char: $char")
 
     class UnknownEnemyTarget(
         char: Char,
-    ) : ParsingException("Unknown enemy target: $char")
+    ) : ParsingReason("Unknown enemy target: $char")
 
-    class MissingServantTarget : ParsingException("Missing servant target")
+    object MissingServantTarget : ParsingReason("Missing servant target")
 
     class UnknownServantTarget(
         target: String,
-    ) : ParsingException("Unknown servant target: $target")
+    ) : ParsingReason("Unknown servant target: $target")
 
-    class AllCommandSpellsAlreadyUsed : ParsingException("All command spells already used")
+    object AllCommandSpellsAlreadyUsed : ParsingReason("All command spells already used")
 
-    class IncompleteCommand : ParsingException("Incomplete command")
+    object IncompleteCommand : ParsingReason("Incomplete command")
 
     class SkillCommandParseError(
         exception: Exception,
-    ) : ParsingException("Error parsing skill command: ${exception.message ?: exception.toString()}")
+    ) : ParsingReason("Error parsing skill command: ${exception.message ?: exception.toString()}")
 
-    class QueuePollError() : ParsingException("Error polling from queue")
+    object QueuePollError : ParsingReason("Error polling from queue")
 }
