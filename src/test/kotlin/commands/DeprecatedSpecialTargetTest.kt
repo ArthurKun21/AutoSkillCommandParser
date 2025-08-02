@@ -29,25 +29,26 @@ class DeprecatedSpecialTargetTest {
         assertEquals(
             expected = "aK",
             actual = action.codes,
-            message = "Action codes should be 'aK'"
+            message = "Action codes should be 'aK'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS1>(
             action.skillSource,
-            message = "Action skill source should be AS1"
+            message = "Action skill source should be AS1",
         )
 
         assertEquals(
-            1, action.targets.size,
-            message = "Action should have one target"
+            1,
+            action.targets.size,
+            message = "Action should have one target",
         )
 
         @Suppress("DEPRECATION")
         assertIs<SkillActionsTarget.Option1>(
             action.targets[0],
-            message = "Action target should be Option1"
+            message = "Action target should be Option1",
         )
     }
 
@@ -66,25 +67,26 @@ class DeprecatedSpecialTargetTest {
         assertEquals(
             expected = "aU",
             actual = action.codes,
-            message = "Action codes should be 'aU'"
+            message = "Action codes should be 'aU'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS1>(
             action.skillSource,
-            message = "Action skill source should be AS1"
+            message = "Action skill source should be AS1",
         )
 
         assertEquals(
-            1, action.targets.size,
-            message = "Action should have one target"
+            1,
+            action.targets.size,
+            message = "Action should have one target",
         )
 
         @Suppress("DEPRECATION")
         assertIs<SkillActionsTarget.Option2>(
             action.targets[0],
-            message = "Action target should be Option2"
+            message = "Action target should be Option2",
         )
     }
 
@@ -103,30 +105,31 @@ class DeprecatedSpecialTargetTest {
         assertEquals(
             expected = "b(U2)",
             actual = action.codes,
-            message = "Action codes should be 'b(U2)'"
+            message = "Action codes should be 'b(U2)'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS2>(
             action.skillSource,
-            message = "Action skill source should be AS2"
+            message = "Action skill source should be AS2",
         )
 
         assertEquals(
-            2, action.targets.size,
-            message = "Action should have two targets"
+            2,
+            action.targets.size,
+            message = "Action should have two targets",
         )
 
         @Suppress("DEPRECATION")
         assertIs<SkillActionsTarget.Option2>(
             action.targets[0],
-            message = "Action target should be Option2"
+            message = "Action target should be Option2",
         )
 
         assertIs<SkillActionsTarget.B>(
             action.targets[1],
-            message = "Action target should be B"
+            message = "Action target should be B",
         )
     }
 
@@ -146,25 +149,26 @@ class DeprecatedSpecialTargetTest {
         assertEquals(
             expected = "cM",
             actual = action.codes,
-            message = "Action codes should be 'cM'"
+            message = "Action codes should be 'cM'",
         )
 
         assertIs<AutoSkillAction.ServantSkill>(action)
 
         assertIs<SkillSource.Servant.AS3>(
             action.skillSource,
-            message = "Action skill source should be AS3"
+            message = "Action skill source should be AS3",
         )
 
         assertEquals(
-            1, action.targets.size,
-            message = "Action should have one target"
+            1,
+            action.targets.size,
+            message = "Action should have one target",
         )
 
         @Suppress("DEPRECATION")
         assertIs<SkillActionsTarget.Transform>(
             action.targets[0],
-            message = "Action target should be Transform"
+            message = "Action target should be Transform",
         )
     }
 }

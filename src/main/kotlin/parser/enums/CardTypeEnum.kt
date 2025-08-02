@@ -14,12 +14,11 @@ enum class CardTypeEnum {
     ;
 
     companion object {
-        fun from(char: Char) =
-            when (char) {
-                'B' -> Buster
-                'A' -> Arts
-                'Q' -> Quick
-                else -> throw Exception("Unknown card type: $char. Only 'B', 'A' and 'Q' are valid card types.")
-            }
+        fun from(char: Char) = when (char) {
+            'B' -> Buster
+            'A' -> Arts
+            'Q' -> Quick
+            else -> throw Exception("Unknown card type: $char. Only 'B', 'A' and 'Q' are valid card types.")
+        }
     }
 }

@@ -14,13 +14,12 @@ sealed class BoostItem {
     }
 
     companion object {
-        fun of(value: Int): BoostItem =
-            when (value) {
-                0 -> Enabled.Skip
-                1 -> Enabled.BoostItem1
-                2 -> Enabled.BoostItem2
-                3 -> Enabled.BoostItem3
-                else -> Disabled
-            }
+        fun of(value: Int): BoostItem = when (value) {
+            0 -> Enabled.Skip
+            1 -> Enabled.BoostItem1
+            2 -> Enabled.BoostItem2
+            3 -> Enabled.BoostItem3
+            else -> Disabled
+        }
     }
 }

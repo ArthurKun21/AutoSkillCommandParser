@@ -5,8 +5,11 @@ import io.arthurkun.parser.model.AutoSkillCommand
 import io.arthurkun.parser.model.CommandCard
 import io.arthurkun.parser.model.SkillSource
 import org.junit.jupiter.api.BeforeAll
-import kotlin.test.*
-
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFails
+import kotlin.test.assertIs
+import kotlin.test.assertTrue
 
 class SimpleParserTest {
 
@@ -42,12 +45,12 @@ class SimpleParserTest {
 
         assertIs<SkillSource.Servant.CS3>(
             action1.skillSource,
-            message = "Action skill source should be CS3"
+            message = "Action skill source should be CS3",
         )
         assertEquals(
             expected = "i",
             actual = action1.codes,
-            message = "Action codes should be 'i'"
+            message = "Action codes should be 'i'",
         )
 
         val action2 = stage1turn1[1]
@@ -56,31 +59,31 @@ class SimpleParserTest {
         assertEquals(
             expected = setOf(CommandCard.NP.C),
             actual = action2.nps,
-            message = "Action NP should be C"
+            message = "Action NP should be C",
         )
 
         assertEquals(
             expected = 0,
             actual = action2.numberOfCardsBeforeNP,
-            message = "Action should have 0 cards before NP"
+            message = "Action should have 0 cards before NP",
         )
 
         assertEquals(
             expected = 1,
             actual = action2.wave,
-            message = "Action wave should be 1"
+            message = "Action wave should be 1",
         )
 
         assertEquals(
             expected = 1,
             actual = action2.turn,
-            message = "Action turn should be 1"
+            message = "Action turn should be 1",
         )
 
         assertEquals(
             expected = "6",
             actual = action2.codes,
-            message = "Action codes should be '6'"
+            message = "Action codes should be '6'",
         )
 
         assertFails("Accessing non-existent action should fail") {
@@ -114,12 +117,12 @@ class SimpleParserTest {
 
         assertIs<SkillSource.Servant.CS1>(
             action1.skillSource,
-            message = "Action skill source should be CS1"
+            message = "Action skill source should be CS1",
         )
         assertEquals(
             expected = "g",
             actual = action1.codes,
-            message = "Action codes should be 'g'"
+            message = "Action codes should be 'g'",
         )
 
         val action2 = stage2turn1[1]
@@ -127,12 +130,12 @@ class SimpleParserTest {
 
         assertIs<SkillSource.Servant.BS3>(
             action2.skillSource,
-            message = "Action skill source should be BS3"
+            message = "Action skill source should be BS3",
         )
         assertEquals(
             expected = "f",
             actual = action2.codes,
-            message = "Action codes should be 'f'"
+            message = "Action codes should be 'f'",
         )
 
         val action3 = stage2turn1[2]
@@ -142,31 +145,31 @@ class SimpleParserTest {
         assertEquals(
             expected = setOf(CommandCard.NP.B),
             actual = action3.nps,
-            message = "Action NP should be B"
+            message = "Action NP should be B",
         )
 
         assertEquals(
             expected = 0,
             actual = action3.numberOfCardsBeforeNP,
-            message = "Action should have 0 cards before NP"
+            message = "Action should have 0 cards before NP",
         )
 
         assertEquals(
             expected = 2,
             actual = action3.wave,
-            message = "Action wave should be 2"
+            message = "Action wave should be 2",
         )
 
         assertEquals(
             expected = 2,
             actual = action3.turn,
-            message = "Action turn should be 2"
+            message = "Action turn should be 2",
         )
 
         assertEquals(
             expected = "5",
             actual = action3.codes,
-            message = "Action codes should be '5'"
+            message = "Action codes should be '5'",
         )
     }
 
@@ -198,31 +201,31 @@ class SimpleParserTest {
         assertEquals(
             expected = setOf(CommandCard.NP.A),
             actual = action1.nps,
-            message = "Action NP should be A"
+            message = "Action NP should be A",
         )
 
         assertEquals(
             expected = 0,
             actual = action1.numberOfCardsBeforeNP,
-            message = "Action should have 0 cards before NP"
+            message = "Action should have 0 cards before NP",
         )
 
         assertEquals(
             expected = 3,
             actual = action1.wave,
-            message = "Action wave should be 3"
+            message = "Action wave should be 3",
         )
 
         assertEquals(
             expected = 3,
             actual = action1.turn,
-            message = "Action turn should be 3"
+            message = "Action turn should be 3",
         )
 
         assertEquals(
             expected = "4",
             actual = action1.codes,
-            message = "Action codes should be '4'"
+            message = "Action codes should be '4'",
         )
     }
 }

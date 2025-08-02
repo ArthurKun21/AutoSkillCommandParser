@@ -4,7 +4,8 @@ enum class GrandServantBondCE {
     SKIP,
     ANY,
     BOND,
-    CHARGE;
+    CHARGE,
+    ;
 
     val isUsed: Boolean
         get() = this != SKIP

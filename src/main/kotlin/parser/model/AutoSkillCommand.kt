@@ -8,10 +8,12 @@ import java.util.*
  * Represents list of commands for a single turn in an auto skill command.
  */
 typealias CommandsList = List<AutoSkillAction>
+
 /**
  * Represents a list of [CommandsList] for each turn in a stage of an auto skill command.
  */
 typealias TurnCommandsList = List<CommandsList>
+
 /**
  * Represents a list of [TurnCommandsList] for each stage in an auto skill command.
  * This is the top-level structure for an auto skill command.
@@ -30,11 +32,10 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
     val getTotalCommandTurns
         get() = stages.flatten().size
 
-    fun commandTurnsUntilStage(stage: Int): Int =
-        when (stage) {
-            0 -> stages[stage].flatten().size
-            else -> stages.take(stage).flatten().size
-        }
+    fun commandTurnsUntilStage(stage: Int): Int = when (stage) {
+        0 -> stages[stage].flatten().size
+        else -> stages.take(stage).flatten().size
+    }
 
     fun commandTurnsAtStage(stage: Int): Int = stages.getOrNull(stage)?.flatten()?.size ?: 0
 
@@ -123,7 +124,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                             targets = actionTargets,
                             wave = wave,
                             turn = turn,
-                            codes = codes
+                            codes = codes,
                         )
                     }
 
@@ -139,7 +140,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                             target = actionTarget,
                             wave = wave,
                             turn = turn,
-                            codes = codes
+                            codes = codes,
                         )
                     }
 
@@ -160,7 +161,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                             target = actionTarget,
                             wave = wave,
                             turn = turn,
-                            codes = codes
+                            codes = codes,
                         )
                     }
 
@@ -173,7 +174,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                             nps = setOf(np),
                             wave = wave,
                             turn = turn,
-                            codes = codes
+                            codes = codes,
                         )
                     }
 
@@ -191,7 +192,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                             target,
                             wave,
                             turn,
-                            codes = codes
+                            codes = codes,
                         )
                     }
 
@@ -210,7 +211,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                             numberOfCardsBeforeNP = count,
                             wave = wave,
                             turn = turn,
-                            codes = codes
+                            codes = codes,
                         )
                     }
 
@@ -238,7 +239,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                             sub = sub,
                             wave = wave,
                             turn = turn,
-                            codes = codes
+                            codes = codes,
                         )
                     }
 
@@ -299,11 +300,17 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                         }
                 }
                 if (char != SpecialCommand.EndSpecialTarget.autoSkillCode) {
-                    throw ParsingException(ParsingReason.MissingEndTarget(SpecialCommand.EndSpecialTarget.autoSkillCode))
+                    throw ParsingException(
+                        ParsingReason.MissingEndTarget(SpecialCommand.EndSpecialTarget.autoSkillCode),
+                    )
                 }
                 if (special.isEmpty()) throw ParsingException(ParsingReason.EmptyCommand)
 
-                if (actionTarget == null) throw ParsingException(ParsingReason.UnknownSpecialTarget(target = special.toString()))
+                if (actionTarget ==
+                    null
+                ) {
+                    throw ParsingException(ParsingReason.UnknownSpecialTarget(target = special.toString()))
+                }
             } else {
                 SkillActionsTarget
                     .list
@@ -367,7 +374,6 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
 
                                 special.clear() // Reset StringBuilder efficiently
                             } ?: run {
-
                             if (special.isEmpty()) {
                                 throw ParsingException(ParsingReason.EmptyCommand)
                             } else {
@@ -396,7 +402,9 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                     throw ParsingException(ParsingReason.MissingEndTarget(SpecialCommand.EndMultiTarget.autoSkillCode))
                 }
                 if (specialFound) {
-                    throw ParsingException(ParsingReason.MissingEndTarget(SpecialCommand.EndSpecialTarget.autoSkillCode))
+                    throw ParsingException(
+                        ParsingReason.MissingEndTarget(SpecialCommand.EndSpecialTarget.autoSkillCode),
+                    )
                 }
             } else {
                 val (target, code) = getTarget(queue)

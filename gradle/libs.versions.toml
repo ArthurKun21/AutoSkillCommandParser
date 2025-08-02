@@ -1,0 +1,11 @@
+[versions]
+kotlin = "2.2.0"
+spotless = "7.1.0"
+ktlint-core = "1.6.0"
+
+[libraries]
+ktlint-core = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint-core" }
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

@@ -6,7 +6,7 @@ fun main() {
     val commands = listOf(
         "",
         "ax11abcdf[Tfrm]gt2j456,i[Tfrm]6",
-        "i6,#,gf5,#,4"
+        "i6,#,gf5,#,4",
     )
     commands.forEachIndexed { index, command ->
         println("Command $index: $command\n")
@@ -18,7 +18,6 @@ fun main() {
         if (index != commands.lastIndex) {
             println("--------------------------------------------------")
         }
-
     }
 }
 
@@ -35,8 +34,8 @@ private fun parseCommand(command: String) {
     groupStageCommands.forEach { (wave, turn), commands ->
         val parseCommandString = commands.joinToString(separator = "\n") { it.codes }
         val commandString = "Wave:${wave}\t" +
-                "Turn:${turn}\n" +
-                parseCommandString
+            "Turn:${turn}\n" +
+            parseCommandString
         println(commandString)
     }
 

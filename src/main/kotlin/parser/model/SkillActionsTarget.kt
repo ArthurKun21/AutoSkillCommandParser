@@ -60,9 +60,9 @@ sealed class SkillActionsTarget(
     sealed class SpecialSkill(
         targetCode: String,
     ) : SkillActionsTarget(
-            autoSkillCode = SpecialCommand.StartSpecialTarget.autoSkillCode,
-            specialTarget = targetCode,
-        ) {
+        autoSkillCode = SpecialCommand.StartSpecialTarget.autoSkillCode,
+        specialTarget = targetCode,
+    ) {
         companion object {
             private val codes = mutableSetOf<String>()
 
@@ -74,7 +74,7 @@ sealed class SkillActionsTarget(
                                 existingCode.startsWith(
                                     targetCode,
                                 )
-                        ),
+                            ),
                     ) {
                         "Special target code " +
                             "$targetCode conflicts with existing code $existingCode"

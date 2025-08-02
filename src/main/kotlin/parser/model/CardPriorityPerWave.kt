@@ -6,15 +6,14 @@ import io.arthurkun.parser.enums.CardTypeEnum
 class CardPriorityPerWave private constructor(
     private val scoresPerWave: List<CardPriority>,
 ) : List<CardPriority> by scoresPerWave {
-    fun atWave(wave: Int) =
-        scoresPerWave[wave.coerceIn(scoresPerWave.indices)]
-            .plus(
-                // Give minimum priority to unknown cards
-                CardScore(
-                    CardTypeEnum.Unknown,
-                    CardAffinityEnum.Normal,
-                ),
-            )
+    fun atWave(wave: Int) = scoresPerWave[wave.coerceIn(scoresPerWave.indices)]
+        .plus(
+            // Give minimum priority to unknown cards
+            CardScore(
+                CardTypeEnum.Unknown,
+                CardAffinityEnum.Normal,
+            ),
+        )
 
     override fun toString() = scoresPerWave.joinToString(STAGE_SEPARATOR)
 
@@ -29,15 +28,14 @@ class CardPriorityPerWave private constructor(
 
         fun from(scoresPerWave: List<CardPriority>) = CardPriorityPerWave(scoresPerWave)
 
-        fun of(priority: String): CardPriorityPerWave =
-            if (priority.isBlank()) {
-                default
-            } else {
-                CardPriorityPerWave(
-                    priority
-                        .split(STAGE_SEPARATOR)
-                        .map { CardPriority.of(it) },
-                )
-            }
+        fun of(priority: String): CardPriorityPerWave = if (priority.isBlank()) {
+            default
+        } else {
+            CardPriorityPerWave(
+                priority
+                    .split(STAGE_SEPARATOR)
+                    .map { CardPriority.of(it) },
+            )
+        }
     }
 }

@@ -35,13 +35,13 @@ class CommandSpellTest {
         assertEquals(
             expected = "o2",
             actual = action.codes,
-            message = "Action codes should be 'o2'"
+            message = "Action codes should be 'o2'",
         )
 
         assertEquals(
             expected = SkillActionsTarget.B,
             actual = action.target,
-            message = "Action target should be B"
+            message = "Action target should be B",
         )
     }
 
@@ -57,13 +57,13 @@ class CommandSpellTest {
         assertEquals(
             expected = "p2",
             actual = action.codes,
-            message = "Action codes should be 'p2'"
+            message = "Action codes should be 'p2'",
         )
 
         assertEquals(
             expected = SkillActionsTarget.B,
             actual = action.target,
-            message = "Action target should be B"
+            message = "Action target should be B",
         )
     }
 
@@ -82,7 +82,7 @@ class CommandSpellTest {
             AutoSkillCommand.parse(failCommand)
         }
     }
-    
+
     @Test
     fun `Max Command Spell is 3`() {
         assertFails {
