@@ -251,7 +251,8 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                     else -> throw ParsingException(ParsingReason.UnknownCommand(char = currentChar))
                 }
             } catch (e: Exception) {
-                throw ParsingException(ParsingReason.SkillCommandParseError(e))
+                if (e is ParsingException) throw e
+                throw ParsingException(ParsingReason.SkillCommandParseError(e), e)
             }
         }
 
