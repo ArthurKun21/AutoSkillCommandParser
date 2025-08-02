@@ -107,9 +107,4 @@ sealed class ParsingReason(val message: String) {
     class SkillCommandParseError(
         val exception: Exception,
     ) : ParsingReason("Error parsing skill command: ${exception.message ?: exception.toString()}")
-
-    /**
-     * Indicates that an error occurred while polling from a queue.
-     */
-    object QueuePollError : ParsingReason("Error polling from queue")
 }

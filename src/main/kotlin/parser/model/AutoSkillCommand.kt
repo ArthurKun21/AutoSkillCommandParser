@@ -109,7 +109,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
             turn: Int = 0,
         ): AutoSkillAction {
             try {
-                val currentChar = queue.poll() ?: throw ParsingException(ParsingReason.QueuePollError)
+                val currentChar = queue.poll() ?: throw ParsingException(ParsingReason.IncompleteCommand)
                 return when (currentChar) {
                     in servantSkillSourceCodes -> {
                         val skillSource = SkillSource.Servant.list
@@ -179,7 +179,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
 
                     SpecialCommand.EnemyTarget.autoSkillCode -> {
                         checkIfQueueIsEmpty(queue)
-                        val targetCode = queue.poll() ?: throw ParsingException(ParsingReason.QueuePollError)
+                        val targetCode = queue.poll() ?: throw ParsingException(ParsingReason.IncompleteCommand)
 
                         val target = EnemyTarget.list
                             .firstOrNull { it.autoSkillCode == targetCode }
@@ -197,7 +197,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
 
                     SpecialCommand.CardsBeforeNP.autoSkillCode -> {
                         checkIfQueueIsEmpty(queue)
-                        val targetCode = queue.poll() ?: throw ParsingException(ParsingReason.QueuePollError)
+                        val targetCode = queue.poll() ?: throw ParsingException(ParsingReason.IncompleteCommand)
 
                         if (!Character.isDigit(targetCode)) {
                             throw ParsingException(ParsingReason.InvalidNumber(char = targetCode))
@@ -216,7 +216,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
 
                     SpecialCommand.OrderChange.autoSkillCode -> {
                         checkIfQueueIsEmpty(queue)
-                        val startingCode = queue.poll() ?: throw ParsingException(ParsingReason.QueuePollError)
+                        val startingCode = queue.poll() ?: throw ParsingException(ParsingReason.IncompleteCommand)
 
                         val starting =
                             OrderChangeMember.Starting.list
@@ -224,7 +224,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                                 ?: throw ParsingException(ParsingReason.UnknownCommand(char = startingCode))
 
                         checkIfQueueIsEmpty(queue)
-                        val subCode = queue.poll() ?: throw ParsingException(ParsingReason.QueuePollError)
+                        val subCode = queue.poll() ?: throw ParsingException(ParsingReason.IncompleteCommand)
 
                         val sub =
                             OrderChangeMember.Sub.list
@@ -270,7 +270,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
 
             if (peekTarget == SpecialCommand.StartSpecialTarget.autoSkillCode) {
                 // remove initial [
-                val code = queue.poll() ?: throw ParsingException(ParsingReason.QueuePollError)
+                val code = queue.poll() ?: throw ParsingException(ParsingReason.IncompleteCommand)
                 // Append the starting special target code
                 targetCodes.append(code)
 
@@ -278,7 +278,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                 var char: Char? = null
 
                 while (queue.isNotEmpty()) {
-                    char = queue.poll() ?: throw ParsingException(ParsingReason.QueuePollError)
+                    char = queue.poll() ?: throw ParsingException(ParsingReason.IncompleteCommand)
 
                     if (char == SpecialCommand.EndSpecialTarget.autoSkillCode) {
                         // Append the ending special target code
@@ -309,7 +309,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                     .list
                     .firstOrNull { it.autoSkillCode == peekTarget }
                     ?.let {
-                        val char = queue.poll() ?: throw ParsingException(ParsingReason.QueuePollError)
+                        val char = queue.poll() ?: throw ParsingException(ParsingReason.IncompleteCommand)
                         targetCodes.append(char)
                         actionTarget = it
                     }
@@ -335,7 +335,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
             val nextChar = queue.peek()
             if (nextChar == SpecialCommand.StartMultiTarget.autoSkillCode) {
                 // Parse multi-target: (target1target2...)
-                val startMultiTargetChar = queue.poll() ?: throw ParsingException(ParsingReason.QueuePollError)
+                val startMultiTargetChar = queue.poll() ?: throw ParsingException(ParsingReason.IncompleteCommand)
                 targetCodes.append(startMultiTargetChar)
 
                 var char: Char? = null
@@ -344,7 +344,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                 val special = StringBuilder()
 
                 while (queue.isNotEmpty()) {
-                    char = queue.poll() ?: throw ParsingException(ParsingReason.QueuePollError)
+                    char = queue.poll() ?: throw ParsingException(ParsingReason.IncompleteCommand)
 
                     if (char == SpecialCommand.EndMultiTarget.autoSkillCode) {
                         targetCodes.append(char)
