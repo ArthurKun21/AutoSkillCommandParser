@@ -31,6 +31,8 @@ sealed class ParsingException(
         target: String,
     ) : ParsingException("Unknown servant target: $target")
 
+    class AllCommandSpellsAlreadyUsed() : ParsingException("All command spells already used")
+
     class IncompleteCommand : ParsingException("Incomplete command")
 
     class SkillCommandParseError(

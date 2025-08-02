@@ -82,17 +82,12 @@ class CommandSpellTest {
             AutoSkillCommand.parse(failCommand)
         }
     }
-
-    // Disabled: The parser currently does not throw an error for
-    // command spell strings that exceed the maximum number of commands.
-    // Once parser validation is implemented,
-    // this test should be enabled to ensure that exceeding the
-    // maximum number of commands fails as expected
-//    @Test
-//    fun `Max Command Spell is 3`(){
-//        assertFails {
-//            val failCommand = "o2p2o2p2"
-//            AutoSkillCommand.parse(failCommand)
-//        }
-//    }
+    
+    @Test
+    fun `Max Command Spell is 3`() {
+        assertFails {
+            val failCommand = "o2p2o2p2"
+            AutoSkillCommand.parse(failCommand)
+        }
+    }
 }

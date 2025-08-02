@@ -69,9 +69,19 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
             val queue: Deque<Char> = ArrayDeque(cmd.length)
             queue.addAll(cmd.asIterable())
 
+            var commandSpellUsed = 0
+
             return buildList {
                 while (queue.isNotEmpty()) {
                     val action = parseAction(queue = queue, wave = wave, turn = turn)
+
+                    // track the number of command spells used
+                    if (action is AutoSkillAction.CommandSpell) {
+                        commandSpellUsed++
+                        if (commandSpellUsed > 3) {
+                            throw ParsingException.AllCommandSpellsAlreadyUsed()
+                        }
+                    }
 
                     // merge NPs and cards before NPs
                     if (isNotEmpty() && action is AutoSkillAction.Atk) {
