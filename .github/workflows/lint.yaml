@@ -39,4 +39,4 @@ jobs:
       - name: Run Lint
         run: |
           git fetch origin master
-          ./gradlew test --rerun-tasks --no-daemon
+          ./gradlew spotlessCheck
