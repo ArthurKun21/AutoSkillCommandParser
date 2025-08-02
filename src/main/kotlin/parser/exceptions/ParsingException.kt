@@ -5,7 +5,10 @@ package io.arthurkun.parser.exceptions
  *
  * @param reason The specific reason for the parsing failure
  */
-class ParsingException(reason: ParsingReason) : Exception(reason.message)
+class ParsingException(
+    val reason: ParsingReason,
+    cause: Throwable? = null,
+) : Exception(reason.message, cause)
 
 /**
  * Sealed class representing different reasons why parsing might fail.
