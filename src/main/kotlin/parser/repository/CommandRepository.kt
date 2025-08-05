@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
-
 class CommandRepository {
 
     private var _autoSkillCommand = MutableStateFlow(AutoSkillCommand.parse(""))

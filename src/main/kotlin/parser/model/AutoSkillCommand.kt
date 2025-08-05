@@ -14,7 +14,6 @@ import java.util.*
  */
 typealias CommandsList = List<AutoSkillAction>
 
-
 class AutoSkillCommand private constructor(val stages: StageCommandList) {
     operator fun get(
         wave: Wave,
