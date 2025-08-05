@@ -20,6 +20,9 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
         turn: Turn,
     ): CommandsList = stages.getOrNull(wave)?.getOrNull(turn) ?: emptyList()
 
+    val getAllCommandsAsList: CommandsList
+        get() = stages.flatten().flatten()
+
     val getTotalCommandTurns
         get() = stages.flatten().size
 

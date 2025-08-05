@@ -53,16 +53,26 @@ class CommandRepository {
     fun createCommand(command: AutoSkillAction) {
     }
 
+    fun createCommandAtPosition(position: Int, command: AutoSkillAction) {
+    }
+
     fun updateCommandByPosition(position: Int, command: AutoSkillAction) {
 
     }
 
     fun deleteCommandByPosition(position: Int) {
+        if (_internalCommand.value.stages.isEmpty()) return
+
+        _internalCommand.value.stages.toMutableList()
+
 
     }
 
     fun deleteLatestCommand() {
+        if (_internalCommand.value.stages.isEmpty()) return
 
+        val lastIndex = _internalCommand.value.getAllCommandsAsList.lastIndex
+        deleteCommandByPosition(lastIndex)
     }
 
     fun moveActionByPosition(from: Int, to: Int) {
