@@ -14,7 +14,6 @@ class CommandRepository {
     val autoSkillCommand: StateFlow<AutoSkillCommand>
         get() = _autoSkillCommand.asStateFlow()
 
-
     fun setCommand(command: String) {
         _autoSkillCommand.update { AutoSkillCommand.parse(command) }
     }
@@ -24,6 +23,5 @@ class CommandRepository {
     }
 
     fun createCommand(command: AutoSkillAction) {
-
     }
 }
