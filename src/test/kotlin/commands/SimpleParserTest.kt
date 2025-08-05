@@ -69,15 +69,15 @@ class SimpleParserTest {
         )
 
         assertEquals(
-            expected = 1,
+            expected = 0,
             actual = action2.wave,
-            message = "Action wave should be 1",
+            message = "Action wave should be 0",
         )
 
         assertEquals(
-            expected = 1,
+            expected = 0,
             actual = action2.turn,
-            message = "Action turn should be 1",
+            message = "Action turn should be 0",
         )
 
         assertEquals(
@@ -155,15 +155,15 @@ class SimpleParserTest {
         )
 
         assertEquals(
-            expected = 2,
+            expected = 1,
             actual = action3.wave,
-            message = "Action wave should be 2",
+            message = "Action wave should be 1",
         )
 
         assertEquals(
-            expected = 2,
+            expected = 1,
             actual = action3.turn,
-            message = "Action turn should be 2",
+            message = "Action turn should be 1",
         )
 
         assertEquals(
@@ -211,15 +211,15 @@ class SimpleParserTest {
         )
 
         assertEquals(
-            expected = 3,
+            expected = 2,
             actual = action1.wave,
-            message = "Action wave should be 3",
+            message = "Action wave should be 2",
         )
 
         assertEquals(
-            expected = 3,
+            expected = 2,
             actual = action1.turn,
-            message = "Action turn should be 3",
+            message = "Action turn should be 2",
         )
 
         assertEquals(

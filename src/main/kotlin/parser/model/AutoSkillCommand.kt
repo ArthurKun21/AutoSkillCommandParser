@@ -56,13 +56,15 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                 trimmedCommand
                     .split(StageMarker.Wave.code)
                     .map { waveCommandList ->
-                        currentWave++
-                        waveCommandList
+                        val waveCommands = waveCommandList
                             .split(StageMarker.Turn.code)
                             .map { cmd ->
+                                val turnCommands = parseActions(cmd = cmd, wave = currentWave, turn = currentTurn)
                                 currentTurn++
-                                parseActions(cmd = cmd, wave = currentWave, turn = currentTurn)
+                                turnCommands
                             }
+                        currentWave++
+                        waveCommands
                     }
 
             return AutoSkillCommand(commandTable)

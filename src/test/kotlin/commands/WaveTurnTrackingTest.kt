@@ -23,17 +23,17 @@ class WaveTurnTrackingTest {
         val firstStage = parsedCommand[0, 0]
 
         for (i in 0..10) {
-            assertEquals(1, firstStage[i].wave)
+            assertEquals(0, firstStage[i].wave)
         }
 
         val secondStage = parsedCommand[1, 0]
         for (i in 0..2) {
-            assertEquals(2, secondStage[i].wave)
+            assertEquals(1, secondStage[i].wave)
         }
 
         val thirdStage = parsedCommand[2, 0]
         for (i in 0..3) {
-            assertEquals(3, thirdStage[i].wave)
+            assertEquals(2, thirdStage[i].wave)
         }
     }
 
@@ -42,17 +42,17 @@ class WaveTurnTrackingTest {
         val firstStage = parsedCommand[0, 0]
 
         for (i in 0..10) {
-            assertEquals(1, firstStage[i].turn)
+            assertEquals(0, firstStage[i].turn)
         }
 
         val secondStage = parsedCommand[1, 0]
         for (i in 0..2) {
-            assertEquals(2, secondStage[i].turn)
+            assertEquals(1, secondStage[i].turn)
         }
 
         val thirdStage = parsedCommand[2, 0]
         for (i in 0..3) {
-            assertEquals(3, thirdStage[i].turn)
+            assertEquals(2, thirdStage[i].turn)
         }
     }
 }
