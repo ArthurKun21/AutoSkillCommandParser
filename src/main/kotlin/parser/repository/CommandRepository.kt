@@ -3,14 +3,14 @@ package io.arthurkun.parser.repository
 import io.arthurkun.parser.model.AutoSkillAction
 import io.arthurkun.parser.model.AutoSkillCommand
 import io.arthurkun.parser.model.CommandsList
+import io.arthurkun.parser.utils.Turn
+import io.arthurkun.parser.utils.Wave
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
-typealias Wave = Int
-typealias Turn = Int
 
 class CommandRepository {
 

@@ -2,6 +2,9 @@ package io.arthurkun.parser.model
 
 import io.arthurkun.parser.exceptions.ParsingException
 import io.arthurkun.parser.exceptions.ParsingReason
+import io.arthurkun.parser.utils.ActionTargetAndCode
+import io.arthurkun.parser.utils.ActionTargetListAndCodes
+import io.arthurkun.parser.utils.StageCommandList
 import java.util.*
 
 /**
@@ -9,19 +12,6 @@ import java.util.*
  */
 typealias CommandsList = List<AutoSkillAction>
 
-/**
- * Represents a list of [CommandsList] for each turn in a stage of an auto skill command.
- */
-typealias TurnCommandsList = List<CommandsList>
-
-/**
- * Represents a list of [TurnCommandsList] for each stage in an auto skill command.
- * This is the top-level structure for an auto skill command.
- */
-typealias StageCommandList = List<TurnCommandsList>
-
-typealias ActionTargetListAndCodes = Pair<List<SkillActionsTarget>, String>
-typealias ActionTargetAndCode = Pair<SkillActionsTarget?, String>
 
 class AutoSkillCommand private constructor(val stages: StageCommandList) {
     operator fun get(
