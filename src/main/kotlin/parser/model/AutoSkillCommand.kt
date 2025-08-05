@@ -5,6 +5,8 @@ import io.arthurkun.parser.exceptions.ParsingReason
 import io.arthurkun.parser.utils.ActionTargetAndCode
 import io.arthurkun.parser.utils.ActionTargetListAndCodes
 import io.arthurkun.parser.utils.StageCommandList
+import io.arthurkun.parser.utils.Turn
+import io.arthurkun.parser.utils.Wave
 import java.util.*
 
 /**
@@ -15,19 +17,19 @@ typealias CommandsList = List<AutoSkillAction>
 
 class AutoSkillCommand private constructor(val stages: StageCommandList) {
     operator fun get(
-        stage: Int,
-        turn: Int,
-    ): CommandsList = stages.getOrNull(stage)?.getOrNull(turn) ?: emptyList()
+        wave: Wave,
+        turn: Turn,
+    ): CommandsList = stages.getOrNull(wave)?.getOrNull(turn) ?: emptyList()
 
     val getTotalCommandTurns
         get() = stages.flatten().size
 
-    fun commandTurnsUntilStage(stage: Int): Int = when (stage) {
-        0 -> stages[stage].flatten().size
-        else -> stages.take(stage).flatten().size
+    fun commandTurnsUntilStage(wave: Int): Int = when (wave) {
+        0 -> stages[wave].flatten().size
+        else -> stages.take(wave).flatten().size
     }
 
-    fun commandTurnsAtStage(stage: Int): Int = stages.getOrNull(stage)?.flatten()?.size ?: 0
+    fun commandTurnsAtStage(wave: Int): Int = stages.getOrNull(wave)?.flatten()?.size ?: 0
 
     private class CommandParser {
 
