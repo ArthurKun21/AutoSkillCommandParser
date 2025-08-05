@@ -49,7 +49,7 @@ tasks.register<Copy>("installLocalGitHook") {
     from(layout.projectDirectory.file("pre-push"))
     into(layout.projectDirectory.dir(".git/hooks"))
     doLast {
-        val hookFile = layout.projectDirectory.file(".git/hooks/pre-push").asFile
+        val hookFile = File(destinationDir, "pre-push")
         hookFile.setExecutable(true, false)
     }
 }
