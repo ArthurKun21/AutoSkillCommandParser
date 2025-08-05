@@ -50,4 +50,10 @@ class CommandRepository {
 data class StageCommandListItem(
     val waveTurn: Pair<Wave, Turn>,
     val commandsList: CommandsList,
-)
+) {
+    val wave: Wave
+        get() = waveTurn.first
+
+    val turn: Turn
+        get() = waveTurn.second
+}
