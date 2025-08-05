@@ -51,21 +51,58 @@ class CommandRepository {
     }
 
     fun createCommand(command: AutoSkillAction) {
+        val allCommands = _internalCommand.value.getAllCommandsAsList.toMutableList()
+
+        // Add the command to the end
+        allCommands.add(command)
+
+        // Rebuild the stages structure with corrected wave/turn values
+        rebuildStagesFromFlatListWithCorrectWaveTurn(allCommands)
     }
 
     fun createCommandAtPosition(position: Int, command: AutoSkillAction) {
+        val allCommands = _internalCommand.value.getAllCommandsAsList.toMutableList()
+
+        // Validate position
+        if (position < 0 || position > allCommands.size) {
+            throw IndexOutOfBoundsException("Position $position is out of bounds for list of size ${allCommands.size}")
+        }
+
+        // Insert the command at the specified position
+        allCommands.add(position, command)
+
+        // Rebuild the stages structure with corrected wave/turn values
+        rebuildStagesFromFlatListWithCorrectWaveTurn(allCommands)
     }
 
     fun updateCommandByPosition(position: Int, command: AutoSkillAction) {
+        val allCommands = _internalCommand.value.getAllCommandsAsList.toMutableList()
 
+        // Validate position
+        if (position < 0 || position >= allCommands.size) {
+            throw IndexOutOfBoundsException("Position $position is out of bounds for list of size ${allCommands.size}")
+        }
+
+        // Update the command at the specified position
+        allCommands[position] = command
+
+        // Rebuild the stages structure with corrected wave/turn values
+        rebuildStagesFromFlatListWithCorrectWaveTurn(allCommands)
     }
 
     fun deleteCommandByPosition(position: Int) {
-        if (_internalCommand.value.stages.isEmpty()) return
+        val allCommands = _internalCommand.value.getAllCommandsAsList.toMutableList()
 
-        _internalCommand.value.stages.toMutableList()
+        // Validate position
+        if (position < 0 || position >= allCommands.size) {
+            throw IndexOutOfBoundsException("Position $position is out of bounds for list of size ${allCommands.size}")
+        }
 
+        // Remove the command at the specified position
+        allCommands.removeAt(position)
 
+        // Rebuild the stages structure with corrected wave/turn values
+        rebuildStagesFromFlatListWithCorrectWaveTurn(allCommands)
     }
 
     fun deleteLatestCommand() {
@@ -76,7 +113,52 @@ class CommandRepository {
     }
 
     fun moveActionByPosition(from: Int, to: Int) {
+        val allCommands = _internalCommand.value.getAllCommandsAsList.toMutableList()
 
+        // Validate positions
+        if (from < 0 || from >= allCommands.size) {
+            throw IndexOutOfBoundsException("From position $from is out of bounds for list of size ${allCommands.size}")
+        }
+        if (to < 0 || to >= allCommands.size) {
+            throw IndexOutOfBoundsException("To position $to is out of bounds for list of size ${allCommands.size}")
+        }
+
+        // Move the command from one position to another
+        val command = allCommands.removeAt(from)
+        allCommands.add(to, command)
+
+        // Rebuild the stages structure with corrected wave/turn values
+        rebuildStagesFromFlatListWithCorrectWaveTurn(allCommands)
+    }
+
+    /**
+     * Rebuilds the stages structure from a flat list of commands.
+     * Groups commands by their wave and turn properties to reconstruct the 3D structure.
+     */
+    private fun rebuildStagesFromFlatList(commands: List<AutoSkillAction>) {
+        if (commands.isEmpty()) {
+            _internalCommand.update { AutoSkillCommand.parse("") }
+            return
+        }
+
+        // Simply rebuild using the command string approach
+        val commandString = commands.joinToString("") { it.codes }
+        _internalCommand.update { AutoSkillCommand.parse(commandString) }
+    }
+
+    /**
+     * Rebuilds the stages structure from a flat list of commands with proper wave/turn correction.
+     * This is needed when commands are inserted/moved and their wave/turn values may be incorrect.
+     */
+    private fun rebuildStagesFromFlatListWithCorrectWaveTurn(commands: List<AutoSkillAction>) {
+        if (commands.isEmpty()) {
+            _internalCommand.update { AutoSkillCommand.parse("") }
+            return
+        }
+
+        // Create command string from the codes and re-parse to get correct wave/turn values
+        val commandString = commands.joinToString("") { it.codes }
+        _internalCommand.update { AutoSkillCommand.parse(commandString) }
     }
 
     /**
@@ -109,10 +191,16 @@ class CommandRepository {
         if (stages.isEmpty()) return ""
 
         return stages.joinToString(StageMarker.Wave.code) { turns ->
-            if (turns.isEmpty()) ""
-            else turns.joinToString(StageMarker.Turn.code) { actions ->
-                if (actions.isEmpty()) ""
-                else actions.joinToString("") { it.codes }
+            if (turns.isEmpty()) {
+                ""
+            } else {
+                turns.joinToString(StageMarker.Turn.code) { actions ->
+                    if (actions.isEmpty()) {
+                        ""
+                    } else {
+                        actions.joinToString("") { it.codes }
+                    }
+                }
             }
         }.removeSuffix(StageMarker.Wave.code)
             .removeSuffix(StageMarker.Turn.code)
