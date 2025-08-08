@@ -109,8 +109,6 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                 val updateLast = lastOrNull()
                 if (updateLast is AutoSkillAction.Atk && isLastTurn) {
                     val updatedAction = updateLast.copy(
-                        wave = wave,
-                        turn = turn,
                         stageMarker = StageMarker.Wave,
                     )
                     this[lastIndex] = updatedAction
