@@ -15,6 +15,7 @@ sealed class AutoSkillAction(
     data class Atk(
         val nps: Set<CommandCard.NP>,
         val numberOfCardsBeforeNP: Int,
+        val stageMarker: StageMarker = StageMarker.Turn,
         override val wave: Int,
         override val turn: Int,
         override val codes: String,
@@ -33,6 +34,7 @@ sealed class AutoSkillAction(
             wave = wave,
             turn = turn,
             codes = codes + other.codes,
+            stageMarker = stageMarker + other.stageMarker,
         )
 
         override fun equals(other: Any?): Boolean {
@@ -60,6 +62,18 @@ sealed class AutoSkillAction(
                 wave = wave,
                 turn = turn,
                 codes = "",
+            )
+
+            fun newWave(
+                wave: Int = 0,
+                turn: Int = 0,
+            ) = Atk(
+                nps = emptySet(),
+                numberOfCardsBeforeNP = 0,
+                wave = 0,
+                turn = 0,
+                codes = "",
+                stageMarker = StageMarker.Wave,
             )
 
             fun np(
