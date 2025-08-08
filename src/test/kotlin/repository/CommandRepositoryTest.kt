@@ -51,6 +51,23 @@ class CommandRepositoryTest {
     }
 
     @Test
+    fun `Test move commands with multiple turns inside`() {
+        val command = "i6,5,a6,#,gf5,#,4"
+        commandRepository.setCommand(command)
+
+        val initialCommand = commandRepository.getCommandString()
+        println("Initial command: $initialCommand")
+
+        commandRepository.moveActionByPosition(4, 5)
+
+        val retrievedCommand = commandRepository.getCommandString()
+        println("Retrieved command: $retrievedCommand")
+
+        assertEquals("i6,5,6,#,agf5,#,4", retrievedCommand)
+    }
+
+
+    @Test
     fun `Test set command is the same as get command`() {
         val command = "i6,#,gf5,#,4"
         commandRepository.setCommand(command)

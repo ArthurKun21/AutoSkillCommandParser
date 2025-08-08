@@ -52,10 +52,17 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                     .map { waveCommandList ->
                         val waveCommands = waveCommandList
                             .split(StageMarker.Turn.code)
-                            .map { cmd ->
-                                val turnCommands = parseActions(cmd = cmd, wave = currentWave, turn = currentTurn)
-                                currentTurn++
-                                turnCommands
+                            .let { turnCommandList ->
+                                turnCommandList.mapIndexed { turnIndex, cmd ->
+                                    val turnCommands = parseActions(
+                                        cmd = cmd,
+                                        wave = currentWave,
+                                        turn = currentTurn,
+                                        isLastTurn = turnIndex == turnCommandList.lastIndex,
+                                    )
+                                    currentTurn++
+                                    turnCommands
+                                }
                             }
                         currentWave++
                         waveCommands
@@ -68,6 +75,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
             cmd: String,
             wave: Int,
             turn: Int,
+            isLastTurn: Boolean = false,
         ): CommandsList {
             val queue: Deque<Char> = ArrayDeque(cmd.length)
             queue.addAll(cmd.asIterable())
@@ -99,7 +107,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                 }
 
                 val updateLast = lastOrNull()
-                if (updateLast is AutoSkillAction.Atk) {
+                if (updateLast is AutoSkillAction.Atk && isLastTurn) {
                     val updatedAction = updateLast.copy(
                         wave = wave,
                         turn = turn,
