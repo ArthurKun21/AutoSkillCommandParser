@@ -64,18 +64,6 @@ sealed class AutoSkillAction(
                 codes = "",
             )
 
-            fun newWave(
-                wave: Int = 0,
-                turn: Int = 0,
-            ) = Atk(
-                nps = emptySet(),
-                numberOfCardsBeforeNP = 0,
-                wave = 0,
-                turn = 0,
-                codes = "",
-                stageMarker = StageMarker.Wave,
-            )
-
             fun np(
                 nps: Set<CommandCard.NP>,
                 wave: Int = 0,
