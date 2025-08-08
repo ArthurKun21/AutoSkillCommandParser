@@ -45,6 +45,7 @@ class CommandRepositoryTest {
         assertIs<AutoSkillAction.Atk>(movedAction2)
 
         val retrievedCommand = commandRepository.getCommandString()
+        println("Retrieved command: $retrievedCommand")
 
         assertEquals("6,#,igf5,#,4", retrievedCommand)
     }
