@@ -103,7 +103,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                     val updatedAction = updateLast.copy(
                         wave = wave,
                         turn = turn,
-                        stageMarker = StageMarker.Wave
+                        stageMarker = StageMarker.Wave,
                     )
                     this[lastIndex] = updatedAction
                 }
