@@ -38,11 +38,11 @@ class CommandRepositoryTest {
 
         val movedCommands = commandRepository.internalCommand.value.getAllCommandsAsList
 
-        val movedAction1 = movedCommands[1]
-        assertIs<AutoSkillAction.ServantSkill>(movedAction1)
+        val movedAction1 = movedCommands[0]
+        assertIs<AutoSkillAction.Atk>(movedAction1)
 
-        val movedAction2 = movedCommands[0]
-        assertIs<AutoSkillAction.Atk>(movedAction2)
+        val movedAction2 = movedCommands[1]
+        assertIs<AutoSkillAction.ServantSkill>(movedAction2)
 
         val retrievedCommand = commandRepository.getCommandString()
 
