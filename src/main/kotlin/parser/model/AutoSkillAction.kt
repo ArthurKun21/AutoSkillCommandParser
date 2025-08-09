@@ -56,12 +56,14 @@ sealed class AutoSkillAction(
             fun noOp(
                 wave: Int = 0,
                 turn: Int = 0,
+                stageMarker: StageMarker = StageMarker.Turn,
             ) = Atk(
                 nps = emptySet(),
                 numberOfCardsBeforeNP = 0,
                 wave = wave,
                 turn = turn,
                 codes = "",
+                stageMarker = stageMarker,
             )
 
             fun np(
@@ -69,12 +71,14 @@ sealed class AutoSkillAction(
                 wave: Int = 0,
                 turn: Int = 0,
                 codes: String,
+                stageMarker: StageMarker = StageMarker.Turn,
             ) = Atk(
                 nps = nps,
                 numberOfCardsBeforeNP = 0,
                 wave = wave,
                 turn = turn,
                 codes = codes,
+                stageMarker = stageMarker,
             )
 
             fun cardsBeforeNP(
@@ -82,12 +86,14 @@ sealed class AutoSkillAction(
                 wave: Int = 0,
                 turn: Int = 0,
                 codes: String,
+                stageMarker: StageMarker = StageMarker.Turn,
             ) = Atk(
                 nps = emptySet(),
                 numberOfCardsBeforeNP = numberOfCardsBeforeNP,
                 wave = wave,
                 turn = turn,
                 codes = codes,
+                stageMarker = stageMarker,
             )
         }
     }

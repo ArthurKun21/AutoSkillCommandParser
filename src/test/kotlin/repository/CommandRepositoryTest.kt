@@ -1,6 +1,8 @@
 package repository
 
 import io.arthurkun.parser.model.AutoSkillAction
+import io.arthurkun.parser.model.CommandCard
+import io.arthurkun.parser.model.StageMarker
 import io.arthurkun.parser.repository.CommandRepository
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -20,6 +22,39 @@ class CommandRepositoryTest {
     @Test
     fun `Test initial command is empty`() {
         assertTrue(commandRepository.internalCommand.value.stages.isEmpty())
+    }
+
+    @Test
+    fun `Test create latest command`() {
+        val command = "i6,#,gf5"
+        commandRepository.setCommand(command)
+
+        val newCommand = AutoSkillAction.Atk.np(
+            nps = setOf(CommandCard.NP.A),
+            codes = "${CommandCard.NP.A.autoSkillCode}",
+        )
+        commandRepository.createCommand(newCommand)
+
+        val retrievedCommand = commandRepository.getCommandString()
+
+        assertEquals("i6,#,gf5,#,4", retrievedCommand)
+    }
+
+    @Test
+    fun `Test create command at position`() {
+        val command = "igf5,#,4"
+        commandRepository.setCommand(command)
+
+        val newCommand = AutoSkillAction.Atk.np(
+            nps = setOf(CommandCard.NP.C),
+            codes = "${CommandCard.NP.C.autoSkillCode}",
+            stageMarker = StageMarker.Wave,
+        )
+        commandRepository.createCommandAtPosition(1, newCommand)
+
+        val retrievedCommand = commandRepository.getCommandString()
+
+        assertEquals("i6,#,gf5,#,4", retrievedCommand)
     }
 
     @Test
