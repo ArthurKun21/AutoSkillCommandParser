@@ -58,6 +58,23 @@ class CommandRepositoryTest {
     }
 
     @Test
+    fun `Test update command at position`() {
+        val command = "i45,#,gf5,#,4"
+        commandRepository.setCommand(command)
+
+        val newCommand = AutoSkillAction.Atk.np(
+            nps = setOf(CommandCard.NP.C),
+            codes = "${CommandCard.NP.C.autoSkillCode}",
+            stageMarker = StageMarker.Wave,
+        )
+        commandRepository.updateCommandByPosition(1, newCommand)
+
+        val retrievedCommand = commandRepository.getCommandString()
+
+        assertEquals("i6,#,gf5,#,4", retrievedCommand)
+    }
+
+    @Test
     fun `Test move commands`() {
         val command = "i6,#,gf5,#,4"
         commandRepository.setCommand(command)
