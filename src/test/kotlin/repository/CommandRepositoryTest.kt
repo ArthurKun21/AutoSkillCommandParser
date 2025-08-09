@@ -136,7 +136,7 @@ class CommandRepositoryTest {
     }
 
     @Test
-    fun `Test delete commands`() {
+    fun `Test delete command at position`() {
         val command = "i6,#,gf5,#,4"
         commandRepository.setCommand(command)
 
