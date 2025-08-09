@@ -132,21 +132,6 @@ class CommandRepository {
     }
 
     /**
-     * Rebuilds the stages structure from a flat list of commands.
-     * Groups commands by their wave and turn properties to reconstruct the 3D structure.
-     */
-    private fun rebuildStagesFromFlatList(commands: List<AutoSkillAction>) {
-        if (commands.isEmpty()) {
-            _internalCommand.update { AutoSkillCommand.parse("") }
-            return
-        }
-
-        // Simply rebuild using the command string approach
-        val commandString = commands.joinToString("") { it.codes }
-        _internalCommand.update { AutoSkillCommand.parse(commandString) }
-    }
-
-    /**
      * Rebuilds the stages structure from a flat list of commands with proper wave/turn correction.
      * This is needed when commands are inserted/moved and their wave/turn values may be incorrect.
      */
