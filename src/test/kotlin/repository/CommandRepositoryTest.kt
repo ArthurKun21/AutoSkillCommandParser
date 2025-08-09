@@ -51,18 +51,36 @@ class CommandRepositoryTest {
 
     @Test
     fun `Test move commands with multiple turns inside`() {
-        val command = "i6,5,a6,#,gf5,#,4"
+        val command = "abc56,645,4,g45,#,iie45,#,o245"
         commandRepository.setCommand(command)
 
         val initialCommand = commandRepository.getCommandString()
         println("Initial command: $initialCommand")
 
-        commandRepository.moveActionByPosition(4, 5)
+        val commands = commandRepository.internalCommand.value.getAllCommandsAsList
+        val action6 = commands[6]
+        assertIs<AutoSkillAction.ServantSkill>(action6)
+        assertEquals("g", action6.codes)
+        val action7 = commands[7]
+        assertIs<AutoSkillAction.Atk>(action7)
+        assertEquals("45", action7.codes)
+
+        commandRepository.moveActionByPosition(6,7)
+
+        println("----- After moving actions -----")
+
+        val movedCommands = commandRepository.internalCommand.value.getAllCommandsAsList
+        val movedAction6 = movedCommands[6]
+        assertIs<AutoSkillAction.Atk>(movedAction6)
+        assertEquals("45", movedAction6.codes)
+        val movedAction7 = movedCommands[7]
+        assertIs<AutoSkillAction.ServantSkill>(movedAction7)
+        assertEquals("g", movedAction7.codes)
 
         val retrievedCommand = commandRepository.getCommandString()
         println("Retrieved command: $retrievedCommand")
 
-        assertEquals("i6,5,6,#,agf5,#,4", retrievedCommand)
+        assertEquals("abc56,645,4,45,#,giie45,#,o245", retrievedCommand)
     }
 
 
