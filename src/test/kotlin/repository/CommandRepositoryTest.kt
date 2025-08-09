@@ -106,9 +106,6 @@ class CommandRepositoryTest {
         val command = "abc56,645,4,g45,#,iie45,#,o245"
         commandRepository.setCommand(command)
 
-        val initialCommand = commandRepository.getCommandString()
-        println("Initial command: $initialCommand")
-
         val commands = commandRepository.internalCommand.value.getAllCommandsAsList
         val action6 = commands[6]
         assertIs<AutoSkillAction.ServantSkill>(action6)
@@ -119,8 +116,6 @@ class CommandRepositoryTest {
 
         commandRepository.moveActionByPosition(6, 7)
 
-        println("----- After moving actions -----")
-
         val movedCommands = commandRepository.internalCommand.value.getAllCommandsAsList
         val movedAction6 = movedCommands[6]
         assertIs<AutoSkillAction.Atk>(movedAction6)
@@ -130,7 +125,6 @@ class CommandRepositoryTest {
         assertEquals("g", movedAction7.codes)
 
         val retrievedCommand = commandRepository.getCommandString()
-        println("Retrieved command: $retrievedCommand")
 
         assertEquals("abc56,645,4,45,#,giie45,#,o245", retrievedCommand)
     }
