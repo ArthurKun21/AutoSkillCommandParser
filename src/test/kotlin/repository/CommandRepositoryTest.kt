@@ -84,6 +84,41 @@ class CommandRepositoryTest {
     }
 
     @Test
+    fun `Test delete commands`() {
+        val command = "i6,#,gf5,#,4"
+        commandRepository.setCommand(command)
+
+        val commands = commandRepository.internalCommand.value.getAllCommandsAsList
+        val action1 = commands[0]
+        assertIs<AutoSkillAction.ServantSkill>(action1)
+
+        val action2 = commands[1]
+        assertIs<AutoSkillAction.Atk>(action2)
+
+        commandRepository.deleteCommandByPosition(0)
+
+        val deletedCommands = commandRepository.internalCommand.value.getAllCommandsAsList
+
+        val deletedAction2 = deletedCommands[0]
+        assertIs<AutoSkillAction.Atk>(deletedAction2)
+
+        val retrievedCommand = commandRepository.getCommandString()
+
+        assertEquals("6,#,gf5,#,4", retrievedCommand)
+    }
+
+    @Test
+    fun `Test delete latest command`() {
+        val command = "i6,#,gf5,#,4"
+        commandRepository.setCommand(command)
+
+        commandRepository.deleteLatestCommand()
+        val retrievedCommand = commandRepository.getCommandString()
+
+        assertEquals("i6,#,gf5", retrievedCommand)
+    }
+
+    @Test
     fun `Test set command is the same as get command`() {
         val command = "i6,#,gf5,#,4"
         commandRepository.setCommand(command)
