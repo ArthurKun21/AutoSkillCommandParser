@@ -65,7 +65,7 @@ class CommandRepositoryTest {
         assertIs<AutoSkillAction.Atk>(action7)
         assertEquals("45", action7.codes)
 
-        commandRepository.moveActionByPosition(6,7)
+        commandRepository.moveActionByPosition(6, 7)
 
         println("----- After moving actions -----")
 
@@ -82,7 +82,6 @@ class CommandRepositoryTest {
 
         assertEquals("abc56,645,4,45,#,giie45,#,o245", retrievedCommand)
     }
-
 
     @Test
     fun `Test set command is the same as get command`() {
