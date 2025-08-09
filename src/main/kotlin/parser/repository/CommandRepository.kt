@@ -154,28 +154,6 @@ class CommandRepository {
     }
 
     /**
-     * Ensures that the stages structure can accommodate the specified wave and turn.
-     * Expands the structure if necessary.
-     */
-    private fun ensureStageExists(wave: Int, turn: Int): StageCommandList {
-        val stages = _internalCommand.value.stages.toMutableList()
-
-        // Ensure we have enough waves
-        while (stages.size <= wave) {
-            stages.add(emptyList())
-        }
-
-        // Ensure we have enough turns in the specified wave
-        val currentWave = stages[wave].toMutableList()
-        while (currentWave.size <= turn) {
-            currentWave.add(emptyList())
-        }
-        stages[wave] = currentWave
-
-        return stages
-    }
-
-    /**
      * Builds a command string from the stages structure.
      * This reconstructs the command string from the actions' codes.
      */
