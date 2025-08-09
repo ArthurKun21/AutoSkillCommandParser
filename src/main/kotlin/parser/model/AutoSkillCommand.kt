@@ -46,27 +46,26 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
             var currentWave = 0
             var currentTurn = 0
 
-            val commandTable =
-                trimmedCommand
-                    .split(StageMarker.Wave.code)
-                    .map { waveCommandList ->
-                        val waveCommands = waveCommandList
-                            .split(StageMarker.Turn.code)
-                            .let { turnCommandList ->
-                                turnCommandList.mapIndexed { turnIndex, cmd ->
-                                    val turnCommands = parseActions(
-                                        cmd = cmd,
-                                        wave = currentWave,
-                                        turn = currentTurn,
-                                        isLastTurn = turnIndex == turnCommandList.lastIndex,
-                                    )
-                                    currentTurn++
-                                    turnCommands
-                                }
+            val commandTable = trimmedCommand
+                .split(StageMarker.Wave.code)
+                .map { waveCommandList ->
+                    val waveCommands = waveCommandList
+                        .split(StageMarker.Turn.code)
+                        .let { turnCommandList ->
+                            turnCommandList.mapIndexed { turnIndex, cmd ->
+                                val turnCommands = parseActions(
+                                    cmd = cmd,
+                                    wave = currentWave,
+                                    turn = currentTurn,
+                                    isLastTurn = turnIndex == turnCommandList.lastIndex,
+                                )
+                                currentTurn++
+                                turnCommands
                             }
-                        currentWave++
-                        waveCommands
-                    }
+                        }
+                    currentWave++
+                    waveCommands
+                }
 
             return AutoSkillCommand(commandTable)
         }
