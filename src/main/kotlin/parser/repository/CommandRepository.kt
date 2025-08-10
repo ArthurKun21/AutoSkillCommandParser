@@ -161,16 +161,8 @@ class CommandRepository {
         if (stages.isEmpty()) return ""
 
         return stages.joinToString(StageMarker.Wave.code) { turns ->
-            if (turns.isEmpty()) {
-                ""
-            } else {
-                turns.joinToString(StageMarker.Turn.code) { actions ->
-                    if (actions.isEmpty()) {
-                        ""
-                    } else {
-                        actions.joinToString("") { it.codes }
-                    }
-                }
+            turns.joinToString(StageMarker.Turn.code) { actions ->
+                actions.joinToString("") { it.codes }
             }
         }
     }
