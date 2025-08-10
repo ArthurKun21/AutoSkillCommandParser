@@ -22,9 +22,8 @@ class CommandRepository {
 
     val commandListByWaveTurn = internalCommand
         .map { skillCommand ->
-            skillCommand.stages
-                .flatMap { it }
-                .flatMap { it }
+            skillCommand
+                .getAllCommandsAsList
                 .groupBy { command ->
                     Pair(command.wave, command.turn)
                 }
