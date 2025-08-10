@@ -172,8 +172,7 @@ class CommandRepository {
                     }
                 }
             }
-        }.removeSuffix(StageMarker.Wave.code)
-            .removeSuffix(StageMarker.Turn.code)
+        }
     }
 }
 

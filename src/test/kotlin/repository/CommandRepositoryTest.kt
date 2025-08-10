@@ -37,7 +37,7 @@ class CommandRepositoryTest {
 
         val retrievedCommand = commandRepository.getCommandString()
 
-        assertEquals("i6,#,gf5,#,4", retrievedCommand)
+        assertEquals("i6,#,gf5,#,4,", retrievedCommand)
     }
 
     @Test
@@ -54,7 +54,7 @@ class CommandRepositoryTest {
 
         val retrievedCommand = commandRepository.getCommandString()
 
-        assertEquals("i6,#,gf5,#,4", retrievedCommand)
+        assertEquals("i6,#,gf5,#,4,#,", retrievedCommand)
     }
 
     @Test
@@ -71,7 +71,7 @@ class CommandRepositoryTest {
 
         val retrievedCommand = commandRepository.getCommandString()
 
-        assertEquals("i6,#,gf5,#,4", retrievedCommand)
+        assertEquals("i6,#,gf5,#,4,#,", retrievedCommand)
     }
 
     @Test
@@ -98,7 +98,7 @@ class CommandRepositoryTest {
 
         val retrievedCommand = commandRepository.getCommandString()
 
-        assertEquals("6,#,igf5,#,4", retrievedCommand)
+        assertEquals("6,#,igf5,#,4,#,", retrievedCommand)
     }
 
     @Test
@@ -126,7 +126,7 @@ class CommandRepositoryTest {
 
         val retrievedCommand = commandRepository.getCommandString()
 
-        assertEquals("abc56,645,4,45,#,giie45,#,o245", retrievedCommand)
+        assertEquals("abc56,645,4,45,#,giie45,#,o245,#,", retrievedCommand)
     }
 
     @Test
@@ -150,7 +150,7 @@ class CommandRepositoryTest {
 
         val retrievedCommand = commandRepository.getCommandString()
 
-        assertEquals("6,#,gf5,#,4", retrievedCommand)
+        assertEquals("6,#,gf5,#,4,#,", retrievedCommand)
     }
 
     @Test
@@ -161,7 +161,7 @@ class CommandRepositoryTest {
         commandRepository.deleteLatestCommand()
         val retrievedCommand = commandRepository.getCommandString()
 
-        assertEquals("i6,#,gf5", retrievedCommand)
+        assertEquals("i6,#,gf5,#,", retrievedCommand)
     }
 
     @Test
