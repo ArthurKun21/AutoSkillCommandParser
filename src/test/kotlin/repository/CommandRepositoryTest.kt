@@ -41,6 +41,22 @@ class CommandRepositoryTest {
     }
 
     @Test
+    fun `Test create latest command with last is a turn`() {
+        val command = "i6,#,gf5,"
+        commandRepository.setCommand(command)
+
+        val newCommand = AutoSkillAction.Atk.np(
+            nps = setOf(CommandCard.NP.A),
+            codes = "${CommandCard.NP.A.autoSkillCode}",
+        )
+        commandRepository.createCommand(newCommand)
+
+        val retrievedCommand = commandRepository.getCommandString()
+
+        assertEquals("i6,#,gf5,4,", retrievedCommand)
+    }
+
+    @Test
     fun `Test create command at position`() {
         val command = "igf5,#,4"
         commandRepository.setCommand(command)
