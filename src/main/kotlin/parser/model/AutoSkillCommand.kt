@@ -181,6 +181,13 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
 
                         val codes = "$currentChar"
 
+                        val peek = queue.peek()
+                        if (peek !in npCodes && peek != nextWaveOrTurnChar && peek != null) {
+                            throw ParsingException(
+                                ParsingReason.NPCodeNotFollowedByWaveOrTurnOrNPCode(currentChar, peek),
+                            )
+                        }
+
                         AutoSkillAction.Atk.np(
                             nps = setOf(np),
                             wave = wave,
@@ -449,6 +456,9 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
             CommandCard.NP.list
                 .map { it.autoSkillCode }
                 .toSet()
+
+        private val nextWaveOrTurnChar =
+            StageMarker.Turn.code.first()
 
         fun parse(command: String): AutoSkillCommand = CommandParser().parseCommand(command)
     }

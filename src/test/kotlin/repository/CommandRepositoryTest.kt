@@ -7,6 +7,7 @@ import io.arthurkun.parser.repository.CommandRepository
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 import kotlin.test.assertIs
 import kotlin.test.assertTrue
 
@@ -23,6 +24,27 @@ class CommandRepositoryTest {
     fun `Test initial command is empty`() {
         assertTrue(commandRepository.internalCommand.value.stages.isEmpty())
     }
+
+    @Test
+    fun `Test invalid NP code`() {
+        val command = "4a"
+        assertFails {
+            commandRepository.setCommand(command)
+        }
+    }
+
+//    @Test
+//    fun `Test valid NP code`() {
+//        val command = "4"
+//        commandRepository.setCommand(command)
+//
+//        val retrievedCommand = commandRepository.getCommandString()
+//        assertEquals(
+//            expected = "4,#,",
+//            actual = retrievedCommand,
+//            message = "The command should be correctly parsed and retrieved",
+//        )
+//    }
 
     @Test
     fun `Test create latest command`() {
