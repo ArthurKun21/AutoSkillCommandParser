@@ -144,15 +144,8 @@ class CommandRepository {
             commands.forEachIndexed { index, command ->
                 append(command.codes)
 
-                if (index < commands.lastIndex) {
-                    if (command is AutoSkillAction.Atk) {
-                        append(command.stageMarker.code)
-                    }
-                } else {
-                    // For the last command, append stage marker if it's an Atk
-                    if (command is AutoSkillAction.Atk) {
-                        append(command.stageMarker.code)
-                    }
+                if (command is AutoSkillAction.Atk) {
+                    append(command.stageMarker.code)
                 }
             }
         }
