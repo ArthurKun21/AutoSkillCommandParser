@@ -232,4 +232,99 @@ class CommandRepositoryTest {
 
         assertTrue(commandRepository.internalCommand.value.stages.isEmpty())
     }
+
+    @Test
+    fun `Test createCommandAtPosition with invalid positions`() {
+        val command = "i6,#,gf5"
+        commandRepository.setCommand(command)
+
+        val newCommand = AutoSkillAction.Atk.np(
+            nps = setOf(CommandCard.NP.A),
+            codes = "${CommandCard.NP.A.autoSkillCode}",
+        )
+
+        // Test negative position
+        assertFails {
+            commandRepository.createCommandAtPosition(-1, newCommand)
+        }
+
+        // Test position beyond list size
+        assertFails {
+            commandRepository.createCommandAtPosition(10, newCommand)
+        }
+    }
+
+    @Test
+    fun `Test updateCommandByPosition with invalid positions`() {
+        val command = "i6,#,gf5"
+        commandRepository.setCommand(command)
+
+        val newCommand = AutoSkillAction.Atk.np(
+            nps = setOf(CommandCard.NP.A),
+            codes = "${CommandCard.NP.A.autoSkillCode}",
+        )
+
+        // Test negative position
+        assertFails {
+            commandRepository.updateCommandByPosition(-1, newCommand)
+        }
+
+        // Test position beyond list size
+        assertFails {
+            commandRepository.updateCommandByPosition(10, newCommand)
+        }
+    }
+
+    @Test
+    fun `Test deleteCommandByPosition with invalid positions`() {
+        val command = "i6,#,gf5"
+        commandRepository.setCommand(command)
+
+        // Test negative position
+        assertFails {
+            commandRepository.deleteCommandByPosition(-1)
+        }
+
+        // Test position beyond list size
+        assertFails {
+            commandRepository.deleteCommandByPosition(10)
+        }
+    }
+
+    @Test
+    fun `Test moveActionByPosition with invalid positions`() {
+        val command = "i6,#,gf5"
+        commandRepository.setCommand(command)
+
+        // Test negative from position
+        assertFails {
+            commandRepository.moveActionByPosition(-1, 0)
+        }
+
+        // Test negative to position
+        assertFails {
+            commandRepository.moveActionByPosition(0, -1)
+        }
+
+        // Test from position beyond list size
+        assertFails {
+            commandRepository.moveActionByPosition(10, 0)
+        }
+
+        // Test to position beyond list size
+        assertFails {
+            commandRepository.moveActionByPosition(0, 10)
+        }
+    }
+
+    @Test
+    fun `Test deleteLatestCommand on empty command`() {
+        // Should not throw error when deleting from empty command
+        commandRepository.clearCommand()
+
+        // This should not fail
+        commandRepository.deleteLatestCommand()
+
+        assertTrue(commandRepository.internalCommand.value.stages.isEmpty())
+    }
 }

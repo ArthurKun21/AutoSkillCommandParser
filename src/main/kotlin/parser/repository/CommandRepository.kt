@@ -148,6 +148,11 @@ class CommandRepository {
                     if (command is AutoSkillAction.Atk) {
                         append(command.stageMarker.code)
                     }
+                } else {
+                    // For the last command, append stage marker if it's an Atk
+                    if (command is AutoSkillAction.Atk) {
+                        append(command.stageMarker.code)
+                    }
                 }
             }
         }
@@ -156,15 +161,27 @@ class CommandRepository {
 
     /**
      * Builds a command string from the stages structure.
-     * This reconstructs the command string from the actions' codes.
+     * This reconstructs the command string from the actions' codes exactly as they were parsed.
      */
     private fun buildCommandString(stages: StageCommandList): String {
         if (stages.isEmpty()) return ""
 
-        return stages.joinToString(StageMarker.Wave.code) { turns ->
+        val commandString = stages.joinToString(StageMarker.Wave.code) { turns ->
             turns.joinToString(StageMarker.Turn.code) { actions ->
                 actions.joinToString("") { it.codes }
             }
+        }
+
+        // Add trailing stage marker only for single-stage, single-turn commands that end with an Atk
+        return if (stages.size == 1 && stages[0].size == 1) {
+            val lastAction = stages[0][0].lastOrNull()
+            if (lastAction is AutoSkillAction.Atk && lastAction.stageMarker == StageMarker.Wave) {
+                commandString + lastAction.stageMarker.code
+            } else {
+                commandString
+            }
+        } else {
+            commandString
         }
     }
 }
