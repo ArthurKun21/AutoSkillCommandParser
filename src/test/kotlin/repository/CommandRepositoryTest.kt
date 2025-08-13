@@ -33,6 +33,16 @@ class CommandRepositoryTest {
         }
     }
 
+    @Test
+    fun `Test two turns`() {
+        val command = "a,b"
+        commandRepository.setCommand(command)
+
+        val retrievedCommand = commandRepository.getCommandString()
+
+        assertEquals("a,b", retrievedCommand)
+    }
+
 //    @Test
 //    fun `Test valid NP code`() {
 //        val command = "4"

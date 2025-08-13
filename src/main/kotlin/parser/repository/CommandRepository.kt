@@ -140,13 +140,15 @@ class CommandRepository {
             return
         }
 
-        // Create command string from the codes and re-parse to get correct wave/turn values
-        val commandString = commands.joinToString("") {
-            if (it is AutoSkillAction.Atk) {
-                // For Atk actions, we need to ensure the wave and turn are set correctly
-                "${it.codes}${it.stageMarker.code}"
-            } else {
-                it.codes
+        val commandString = buildString {
+            commands.forEachIndexed { index, command ->
+                append(command.codes)
+
+                if (index < commands.lastIndex) {
+                    if (command is AutoSkillAction.Atk) {
+                        append(command.stageMarker.code)
+                    }
+                }
             }
         }
         _internalCommand.update { AutoSkillCommand.parse(commandString) }
