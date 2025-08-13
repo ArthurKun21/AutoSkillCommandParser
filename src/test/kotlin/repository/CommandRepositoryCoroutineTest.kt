@@ -80,6 +80,5 @@ class CommandRepositoryCoroutineTest {
             actual = commandListByWaveTurn[secondTurn].waveTurn.second,
             message = "The second command should be in turn 1",
         )
-
     }
 }
