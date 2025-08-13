@@ -43,18 +43,18 @@ class CommandRepositoryTest {
         assertEquals("a,b", retrievedCommand)
     }
 
-//    @Test
-//    fun `Test valid NP code`() {
-//        val command = "4"
-//        commandRepository.setCommand(command)
-//
-//        val retrievedCommand = commandRepository.getCommandString()
-//        assertEquals(
-//            expected = "4,#,",
-//            actual = retrievedCommand,
-//            message = "The command should be correctly parsed and retrieved",
-//        )
-//    }
+    @Test
+    fun `Test valid NP code`() {
+        val command = "4"
+        commandRepository.setCommand(command)
+
+        val retrievedCommand = commandRepository.getCommandString()
+        assertEquals(
+            expected = "4,#,",
+            actual = retrievedCommand,
+            message = "The command should be correctly parsed and retrieved",
+        )
+    }
 
     @Test
     fun `Test create latest command`() {
