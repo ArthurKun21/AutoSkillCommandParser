@@ -2,6 +2,11 @@ package io.arthurkun.parser.model
 
 import io.arthurkun.parser.exceptions.ParsingException
 import io.arthurkun.parser.exceptions.ParsingReason
+import io.arthurkun.parser.utils.ActionTargetAndCode
+import io.arthurkun.parser.utils.ActionTargetListAndCodes
+import io.arthurkun.parser.utils.StageCommandList
+import io.arthurkun.parser.utils.Turn
+import io.arthurkun.parser.utils.Wave
 import java.util.*
 
 /**
@@ -9,35 +14,24 @@ import java.util.*
  */
 typealias CommandsList = List<AutoSkillAction>
 
-/**
- * Represents a list of [CommandsList] for each turn in a stage of an auto skill command.
- */
-typealias TurnCommandsList = List<CommandsList>
-
-/**
- * Represents a list of [TurnCommandsList] for each stage in an auto skill command.
- * This is the top-level structure for an auto skill command.
- */
-typealias StageCommandList = List<TurnCommandsList>
-
-typealias ActionTargetListAndCodes = Pair<List<SkillActionsTarget>, String>
-typealias ActionTargetAndCode = Pair<SkillActionsTarget?, String>
-
 class AutoSkillCommand private constructor(val stages: StageCommandList) {
     operator fun get(
-        stage: Int,
-        turn: Int,
-    ): CommandsList = stages.getOrNull(stage)?.getOrNull(turn) ?: emptyList()
+        wave: Wave,
+        turn: Turn,
+    ): CommandsList = stages.getOrNull(wave)?.getOrNull(turn) ?: emptyList()
+
+    val getAllCommandsAsList: CommandsList
+        get() = stages.flatten().flatten()
 
     val getTotalCommandTurns
         get() = stages.flatten().size
 
-    fun commandTurnsUntilStage(stage: Int): Int = when (stage) {
-        0 -> stages[stage].flatten().size
-        else -> stages.take(stage).flatten().size
+    fun commandTurnsUntilStage(wave: Int): Int = when (wave) {
+        0 -> stages[wave].flatten().size
+        else -> stages.take(wave).flatten().size
     }
 
-    fun commandTurnsAtStage(stage: Int): Int = stages.getOrNull(stage)?.flatten()?.size ?: 0
+    fun commandTurnsAtStage(wave: Int): Int = stages.getOrNull(wave)?.flatten()?.size ?: 0
 
     private class CommandParser {
 
@@ -52,20 +46,26 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
             var currentWave = 0
             var currentTurn = 0
 
-            val commandTable =
-                trimmedCommand
-                    .split(StageMarker.Wave.code)
-                    .map { waveCommandList ->
-                        val waveCommands = waveCommandList
-                            .split(StageMarker.Turn.code)
-                            .map { cmd ->
-                                val turnCommands = parseActions(cmd = cmd, wave = currentWave, turn = currentTurn)
+            val commandTable = trimmedCommand
+                .split(StageMarker.Wave.code)
+                .map { waveCommandList ->
+                    val waveCommands = waveCommandList
+                        .split(StageMarker.Turn.code)
+                        .let { turnCommandList ->
+                            turnCommandList.mapIndexed { turnIndex, cmd ->
+                                val turnCommands = parseActions(
+                                    cmd = cmd,
+                                    wave = currentWave,
+                                    turn = currentTurn,
+                                    isLastTurn = turnIndex == turnCommandList.lastIndex,
+                                )
                                 currentTurn++
                                 turnCommands
                             }
-                        currentWave++
-                        waveCommands
-                    }
+                        }
+                    currentWave++
+                    waveCommands
+                }
 
             return AutoSkillCommand(commandTable)
         }
@@ -74,6 +74,7 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
             cmd: String,
             wave: Int,
             turn: Int,
+            isLastTurn: Boolean = false,
         ): CommandsList {
             val queue: Deque<Char> = ArrayDeque(cmd.length)
             queue.addAll(cmd.asIterable())
@@ -102,6 +103,14 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                     }
 
                     add(action)
+                }
+
+                val updateLast = lastOrNull()
+                if (updateLast is AutoSkillAction.Atk && isLastTurn) {
+                    val updatedAction = updateLast.copy(
+                        stageMarker = StageMarker.Wave,
+                    )
+                    this[lastIndex] = updatedAction
                 }
             }
         }
@@ -171,6 +180,13 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
                         val np = CommandCard.NP.list.first { it.autoSkillCode == currentChar }
 
                         val codes = "$currentChar"
+
+                        val peek = queue.peek()
+                        if (peek !in npCodes && peek != nextWaveOrTurnChar && peek != null) {
+                            throw ParsingException(
+                                ParsingReason.NPCodeNotFollowedByWaveOrTurnOrNPCode(currentChar, peek),
+                            )
+                        }
 
                         AutoSkillAction.Atk.np(
                             nps = setOf(np),
@@ -440,6 +456,9 @@ class AutoSkillCommand private constructor(val stages: StageCommandList) {
             CommandCard.NP.list
                 .map { it.autoSkillCode }
                 .toSet()
+
+        private val nextWaveOrTurnChar =
+            StageMarker.Turn.code.first()
 
         fun parse(command: String): AutoSkillCommand = CommandParser().parseCommand(command)
     }

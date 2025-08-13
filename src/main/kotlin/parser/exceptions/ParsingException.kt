@@ -17,6 +17,17 @@ class ParsingException(
  * @property message The error message describing the parsing failure
  */
 sealed class ParsingReason(val message: String) {
+
+    data class NPCodeNotFollowedByWaveOrTurnOrNPCode(
+        val char: Char,
+        val nextChar: Char? = null,
+    ) : ParsingReason(
+        (
+            "NP code \"$char\" must be followed by a wave, " +
+                "turn, another NP code or None ${nextChar ?: ""}"
+            ).trim(),
+    )
+
     /**
      * Indicates that a required end target character is missing.
      *
